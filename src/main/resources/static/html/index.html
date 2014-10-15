@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello React</title>
+	<script src="/lib/react-0.11.2.js"></script>
+	<script src="/lib/JSXTransformer-0.11.2.js"></script>
+	<script src="/lib/jquery-1.10.0.js"></script>
+	<script src="/lib/react-bootstrap.js"></script>
+	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+</head>
+<body>
+
+
+
+<div id="content"></div>
+
+
+<script type="text/jsx">
+      /** @jsx React.DOM */
+
+var ButtonToolbar = ReactBootstrap.ButtonToolbar;
+var Button = ReactBootstrap.Button;
+
+var App = React.createClass({
+
+    getInitialState: function() {
+      return {minSalaryInput: 100};
+    },
+
+    componentDidMount: function() {
+         this.handleChange(this.state.minSalaryInput);
+    },
+    handleChange: function(value) {
+
+		if(value <= 0){
+
+			this.setState({minSalaryInput: 0}, function() {
+				this.refs.minSalary.getDOMNode().disabled = true;
+				this.refs.minSalary.getDOMNode().value = "Unspecified";
+		  });
+
+		} else {
+			this.setState({minSalaryInput: value}, function() {
+				this.refs.minSalary.getDOMNode().disabled = false;
+				this.refs.minSalary.getDOMNode().value = value;
+				this.refs.minSalaryCheckbox.getDOMNode().checked = "true";
+		  });
+
+		}
+    },
+    clearAndFocusInput: function(e) {
+
+	  if(e.target.checked) {
+
+		  this.setState({minSalaryInput: 0}, function() {
+			this.refs.minSalary.getDOMNode().disabled = false;
+			this.refs.minSalary.getDOMNode().value = "";
+			this.refs.minSalary.getDOMNode().focus();
+		  });
+
+      } else {
+
+		  this.setState({minSalaryInput: 0}, function() {
+			this.refs.minSalary.getDOMNode().disabled = true;
+			this.refs.minSalary.getDOMNode().value = "Unspecified";
+
+		  });
+
+      }
+
+    },
+    render: function() {
+      return (
+        <div>
+  		  <input type="checkbox" ref="minSalaryCheckbox" onChange={this.clearAndFocusInput}></input>
+  		  <label htmlFor="male">Min:</label>
+  		  <input id="minSalary" ref="minSalary" onChange={this.handleChange}/>
+
+        </div>
+      );
+    }
+  });
+
+
+      var buttonsInstance = (<App   />);
+
+    React.renderComponent(buttonsInstance, document.getElementById('content'));
+
+
+    </script>
+
+</body>
+</html>
