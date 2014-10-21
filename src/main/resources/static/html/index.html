@@ -10,32 +10,43 @@
 </head>
 <body>
 <script> var TabbedArea = ReactBootstrap.TabbedArea; var TabPane = ReactBootstrap.TabPane;</script>
-
+<script>function GetURLParameter(sParam, defaultValue)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+        	if (jQuery.type(defaultValue) === "number") {
+    			return parseInt(sParameterName[1]);
+			}
+			return sParameterName[1];
+		}
+	}
+	return defaultValue;
+};</script>
 
 <div id="content"></div>
 
 
-
-
-
-
 <script type="text/jsx"> /** @jsx React.DOM */
 
-
 var tabbedAreaInstance = (
-	<div className="masthead">
-    <TabbedArea defaultActiveKey={2}>
+    <TabbedArea defaultActiveKey={GetURLParameter('tab', 1)}>
       <TabPane key={1} tab="Tab 1">TabPane 1 content</TabPane>
       <TabPane key={2} tab="Tab 2">TabPane 2 content</TabPane>
+      <TabPane key={3} tab="Tab 2">TabPane 2 content</TabPane>
+      <TabPane key={4} tab="Tab 2">TabPane 2 content</TabPane>
+      <TabPane key={5} tab="Tab 2">TabPane 2 content</TabPane>
     </TabbedArea>
-    </div>
   );
 
+React.renderComponent( tabbedAreaInstance, document.getElementById('content'));
 
-    React.renderComponent(tabbedAreaInstance, document.getElementById('content'));
 
-
-    </script>
+</script>
 
 </body>
 </html>

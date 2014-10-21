@@ -1,63 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello React</title>
+	<script src="../lib/react-0.11.2.js"></script>
+	<script src="../lib/JSXTransformer-0.11.2.js"></script>
+	<script src="../lib/jquery-1.10.0.js"></script>
+	<script src="../lib/react-bootstrap.js"></script>
+	<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
+</head>
+<body>
+<div id="content"></div>
+<script type="text/jsx">
+      /** @jsx React.DOM */
 
-<!--var App = React.createClass({-->
+var ButtonToolbar = ReactBootstrap.ButtonToolbar;
+var Button = ReactBootstrap.Button;
 
-<!--getInitialState: function() {-->
-<!--return {minSalaryInput: 100};-->
-<!--},-->
+var App = React.createClass({
 
-<!--componentDidMount: function() {-->
-<!--this.handleChange(this.state.minSalaryInput);-->
-<!--},-->
-<!--handleChange: function(value) {-->
+    getInitialState: function() {
+      return {minSalaryInput: 100};
+    },
 
-<!--if(value <= 0){-->
+    componentDidMount: function() {
+         this.handleChange(this.state.minSalaryInput);
+    },
+    handleChange: function(value) {
 
-<!--this.setState({minSalaryInput: 0}, function() {-->
-<!--this.refs.minSalary.getDOMNode().disabled = true;-->
-<!--this.refs.minSalary.getDOMNode().value = "Unspecified";-->
-<!--});-->
+		if(value <= 0){
 
-<!--} else {-->
-<!--this.setState({minSalaryInput: value}, function() {-->
-<!--this.refs.minSalary.getDOMNode().disabled = false;-->
-<!--this.refs.minSalary.getDOMNode().value = value;-->
-<!--this.refs.minSalaryCheckbox.getDOMNode().checked = "true";-->
-<!--});-->
+			this.setState({minSalaryInput: 0}, function() {
+				this.refs.minSalary.getDOMNode().disabled = true;
+				this.refs.minSalary.getDOMNode().value = "Unspecified";
+		  });
 
-<!--}-->
-<!--},-->
-<!--clearAndFocusInput: function(e) {-->
+		} else {
+			this.setState({minSalaryInput: value}, function() {
+				this.refs.minSalary.getDOMNode().disabled = false;
+				this.refs.minSalary.getDOMNode().value = value;
+				this.refs.minSalaryCheckbox.getDOMNode().checked = "true";
+		  });
 
-<!--if(e.target.checked) {-->
+		}
+    },
+    clearAndFocusInput: function(e) {
 
-<!--this.setState({minSalaryInput: 0}, function() {-->
-<!--this.refs.minSalary.getDOMNode().disabled = false;-->
-<!--this.refs.minSalary.getDOMNode().value = "";-->
-<!--this.refs.minSalary.getDOMNode().focus();-->
-<!--});-->
+	  if(e.target.checked) {
 
-<!--} else {-->
+		  this.setState({minSalaryInput: 0}, function() {
+			this.refs.minSalary.getDOMNode().disabled = false;
+			this.refs.minSalary.getDOMNode().value = "";
+			this.refs.minSalary.getDOMNode().focus();
+		  });
 
-<!--this.setState({minSalaryInput: 0}, function() {-->
-<!--this.refs.minSalary.getDOMNode().disabled = true;-->
-<!--this.refs.minSalary.getDOMNode().value = "Unspecified";-->
+      } else {
 
-<!--});-->
+		  this.setState({minSalaryInput: 0}, function() {
+			this.refs.minSalary.getDOMNode().disabled = true;
+			this.refs.minSalary.getDOMNode().value = "Unspecified";
 
-<!--}-->
+		  });
 
-<!--},-->
-<!--render: function() {-->
-<!--return (-->
-<!--<div>-->
-<!--<input type="checkbox" ref="minSalaryCheckbox" onChange={this.clearAndFocusInput}></input>-->
-<!--<label htmlFor="male">Min:</label>-->
-<!--<input id="minSalary" ref="minSalary" onChange={this.handleChange}/>-->
+      }
 
-<!--</div>-->
-<!--);-->
-<!--}-->
-<!--});-->
+    },
+    render: function() {
+      return (
+        <div>
+  		  <input type="checkbox" ref="minSalaryCheckbox" onChange={this.clearAndFocusInput}></input>
+  		  <label htmlFor="male">Min:</label>
+  		  <input id="minSalary" ref="minSalary" onChange={this.handleChange}/>
+
+        </div>
+      );
+    }
+  });
 
 
-<!--var buttonsInstance = (<App   />);-->
+      var buttonsInstance = (<App   />);
+
+    React.renderComponent(buttonsInstance, document.getElementById('content'));
+
+
+    </script>
+</body>
+</html>

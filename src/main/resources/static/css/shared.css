@@ -1,0 +1,345 @@
+.clear{
+    display: block;
+    width: 100%;
+    height: 1px;
+    clear: both;
+    overflow: hidden;
+}
+
+h1, h2{
+    padding: 20px 0 10px 0;
+    text-align:center;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+h1{
+    font-size: 28px;
+}
+
+h2{
+    text-align: left;
+}
+
+
+.text-center{
+    text-align: center;
+}
+
+.text-padded{
+    padding: 0 100px 0 0;
+}
+
+.text-backgrounded{
+    background: #f4f4f4;
+    padding: 20px 15px;
+}
+
+.line{
+    display: block;
+    width: 100%;
+    height: 10px;
+    clear: both;
+    overflow: hidden;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+
+ul.nav-justified{
+    display: table;
+}
+
+ul.nav-justified li{
+    width: auto;
+}
+
+
+.float-right{
+    float: right;
+}
+
+
+/* ========= COMMON ======== */
+
+.btn.btn-add,
+.btn.btn-and-type{
+    padding-left: 30px;
+    background-image: url(../images/add-ico.png);
+    background-repeat: no-repeat;
+    background-position: 8px center;
+}
+
+.btn.btn-and-type{
+    background-image: url(../images/arrows-ico.png);
+}
+
+.btn-dark{
+    color: #fff;
+    border-color: #898d87;
+    background-color: #90978d;
+}
+
+.btn-dark:hover, .btn-dark:focus{
+    color: #fff;
+    border-color: #727570;
+    background-color: #7c817a;
+}
+
+.btn-item{
+    border: 1px solid #d3d3d3;
+    background: #e7e7e7 url(../images/item-bg.png) repeat-x left top;
+}
+
+.ico-man,
+.ico-woman{
+    width: 22px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../images/ico-wo-man.png) no-repeat left top;
+}
+
+.ico-woman{
+    background-position: left bottom;
+}
+
+.ico-show, .ico-delete{
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
+.ico-show:hover, .ico-delete:hover{
+    background-position: left bottom;
+}
+
+.ico-show { background: url(../images/action-show.png) no-repeat left top; }
+.ico-delete { background: url(../images/action-delete.png) no-repeat left top; }
+
+.link{
+    color: #36ac36;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.button-back{
+    line-height: 25px;
+    display: inline-block;
+    margin: 14px 0 0 0;
+    padding: 0 0 0 30px;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    vertical-align: middle;
+    background: url(../images/button-back.png) no-repeat left top; 
+}
+
+.button-back:hover{
+    background-position: left -37px;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+.hide-show{
+     margin: 20px 0 0 0;
+}
+
+.hide-show .stable-block{
+    padding: 0 0 35px 0;
+   margin: 0 0 20px 0;
+    position: relative;
+    background: url(../images/tint.png) no-repeat center bottom; 
+    
+}
+
+.hide-show .stable-block h2{
+    padding: 0;
+    margin: 0;
+
+    text-align: center;
+    
+}
+
+
+
+
+.hide-show .ico-hide-show{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    padding: 0 40px 0 0;
+    height: 34px;
+    line-height: 34px;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-align: right;
+
+
+    color: #555;
+    cursor: pointer;
+    background: url(../images/ico-hide-show.png) no-repeat right top; 
+}
+
+.hide-show .hiding-block{
+     -webkit-transition:0.7s linear all;
+     -moz-transition:0.7s linear all;
+    transition:0.7s linear all;
+    padding: 0 0 30px 0;
+     max-height: 1000px;
+}
+
+.hide-show.state-hidden .hiding-block{
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0px;
+    
+}
+
+.hide-show.state-hidden .ico-hide-show{
+    background-position: right bottom;
+}
+
+.hide-show .ico-hide-show .showText{
+    display: none;
+}
+
+.hide-show.state-hidden .ico-hide-show .showText{
+    display: inline;
+}
+
+.hide-show.state-hidden .ico-hide-show .hideText{
+    display: none;
+}
+
+
+/* ========= TABLE ======== */
+
+table.styled{
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: separate;
+}
+
+
+
+table.styled td,
+table.styled th{
+    padding: 5px 10px;
+}
+
+
+table.styled th{
+    padding: 10px;
+    background: #444;
+    color: #fff;
+    border-bottom: 1px solid #898d87;
+    font-weight: normal;
+
+
+
+}
+
+table.styled th a{
+    padding: 0 20px 0 0;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    color: #fff;
+    background: url(../images/sort.png) no-repeat right center;
+}
+
+table.styled th a.asc{
+    background: url(../images/sort-asc.png) no-repeat right center;
+}
+
+table.styled th a.desc{
+    background: url(../images/sort-desc.png) no-repeat right center;
+}
+
+table.styled th a:hover{
+    text-decoration: underline;
+}
+
+
+table.styled td{
+
+    border-bottom: 1px solid #d8d8d8;
+}
+
+
+
+table.styled tr:hover td{
+    background: #e7e9e7;
+}
+
+
+table.styled td:first-child{
+    width: 22px;
+    border-left: 1px solid #d8d8d8;
+}
+table.styled td:last-child{
+    width: 80px;
+    border-right: 1px solid #d8d8d8;
+}
+
+table.styled tr:first-child th:first-child {
+    width: 22px;
+  border-top-left-radius: 6px;
+}
+
+table.styled tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+
+table.styled tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+}
+
+table.styled tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+}
+
+
+/* ==== DATEPICKER === */
+
+ul[datepicker-popup-wrap] .btn-sm{
+    padding: 2px 6px;
+    border: 0;
+}
+
+ul[datepicker-popup-wrap] li{
+    padding: 0 10px;
+}
+
+/* ==== language + contact === */
+
+.language{
+    line-height: 17px;
+    padding: 0 0 0 33px;
+    margin: 0 5px;
+}
+
+.language.cz{
+    background: url(../images/flags/Czech-Republic.png) no-repeat left center;
+}
+.language.en{
+    background: url(../images/flags/United-Kingdom.png) no-repeat left center;
+}
+
+.contact .ico{
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../images/contacts-icons.png) no-repeat left top;
+}
+
+.contact .ico.skype{ background-position: -3px top; }
+.contact .ico.email{ background-position: -34px top; }
+.contact .ico.phone{ background-position: -65px top; }

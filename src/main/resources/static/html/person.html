@@ -2,86 +2,80 @@
 <html>
 <head>
 	<title>Hello React</title>
-	<script src="http://fb.me/react-0.11.2.js"></script>
-	<script src="http://fb.me/JSXTransformer-0.11.2.js"></script>
-	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-	<script src="./react-bootstrap.js"></script>
-	<link rel="stylesheet" href="./bootstrap.min.css">
+	<script src="../lib/react-0.11.2.js"></script>
+	<script src="../lib/JSXTransformer-0.11.2.js"></script>
+	<script src="../lib/jquery-1.10.0.js"></script>
+	<script src="../lib/react-bootstrap.js"></script>
+
+	<link rel="stylesheet" href="../css/justified-nav.css">
+	<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../css/shared.css">
+
+	<link rel="stylesheet" href="../css/profile.css">
+	<link rel="stylesheet" href="../css/shared.css">
+
+
 </head>
 <body>
-<div id="content"></div>
-<script type="text/jsx">
-      /** @jsx React.DOM */
-
-var ButtonToolbar = ReactBootstrap.ButtonToolbar;
-var Button = ReactBootstrap.Button;
-
-var App = React.createClass({
-
-    getInitialState: function() {
-      return {minSalaryInput: 100};
-    },
-
-    componentDidMount: function() {
-         this.handleChange(this.state.minSalaryInput);
-    },
-    handleChange: function(value) {
-
-		if(value <= 0){
-
-			this.setState({minSalaryInput: 0}, function() {
-				this.refs.minSalary.getDOMNode().disabled = true;
-				this.refs.minSalary.getDOMNode().value = "Unspecified";
-		  });
-
-		} else {
-			this.setState({minSalaryInput: value}, function() {
-				this.refs.minSalary.getDOMNode().disabled = false;
-				this.refs.minSalary.getDOMNode().value = value;
-				this.refs.minSalaryCheckbox.getDOMNode().checked = "true";
-		  });
-
+<script>
+var TabbedArea = ReactBootstrap.TabbedArea;
+var TabPane = ReactBootstrap.TabPane;
+</script>
+<script>function GetURLParameter(sParam, defaultValue)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+        	if (jQuery.type(defaultValue) === "number") {
+    			return parseInt(sParameterName[1]);
+			}
+			return sParameterName[1];
 		}
-    },
-    clearAndFocusInput: function(e) {
+	}
+	return defaultValue;
+};</script>
 
-	  if(e.target.checked) {
-
-		  this.setState({minSalaryInput: 0}, function() {
-			this.refs.minSalary.getDOMNode().disabled = false;
-			this.refs.minSalary.getDOMNode().value = "";
-			this.refs.minSalary.getDOMNode().focus();
-		  });
-
-      } else {
-
-		  this.setState({minSalaryInput: 0}, function() {
-			this.refs.minSalary.getDOMNode().disabled = true;
-			this.refs.minSalary.getDOMNode().value = "Unspecified";
-
-		  });
-
-      }
-
-    },
-    render: function() {
-      return (
-        <div>
-  		  <input type="checkbox" ref="minSalaryCheckbox" onChange={this.clearAndFocusInput}></input>
-  		  <label htmlFor="male">Min:</label>
-  		  <input id="minSalary" ref="minSalary" onChange={this.handleChange}/>
-
-        </div>
-      );
-    }
-  });
+<script src="../app/component/Education.js" type="text/jsx"></script>
+<script src="../app/component/PhotoPanel.js" type="text/jsx"></script>
+<script src="../app/component/PersonalDetails.js" type="text/jsx"></script>
+<script src="../app/component/Contacts.js" type="text/jsx"></script>
+<script src="../app/component/JobsHistory.js" type="text/jsx"></script>
+<script src="../app/component/Languages.js" type="text/jsx"></script>
+<script src="../app/PersonProfile.js" type="text/jsx"></script>
+<script src="../app/Header.js" type="text/jsx"></script>
+<script src="../app/Tabs.js" type="text/jsx"></script>
+<script src="../app/Footer.js" type="text/jsx"></script>
 
 
-      var buttonsInstance = (<App   />);
-
-    React.renderComponent(buttonsInstance, document.getElementById('content'));
 
 
-    </script>
+
+
+<div id="content"></div>
+
+
+<script type="text/jsx"> /** @jsx React.DOM */
+
+var PersonApplication = React.createClass({
+  render: function() {
+    return (
+    <div className="applicationClass">
+      		<Header />
+      		<Tabs />
+      		<Footer />
+    </div>
+
+    );
+  }
+});
+
+React.renderComponent( <PersonApplication />, document.getElementById('content'));
+
+</script>
+
 </body>
 </html>
