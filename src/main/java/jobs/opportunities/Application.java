@@ -63,15 +63,34 @@ public class Application {
 		en.setDeu("Englisch");
 		en.setIcon("");
 
-	    Language language = languageRepository.save(en);
+	    en = languageRepository.save(en);
 
-		Speaks speaks = new Speaks();
-		speaks.setLanguageLevel(Speaks.LanguageLevel.A1);
-		speaks.setLanguage(language);
-		speaks.setPerson(person);
+		Language deu = new Language();
+		deu.setId1("deu");
+		deu.setId2("de");
+		deu.setId3("ger");
+		deu.setNativ("Deutsch");
+		deu.setEng("German");
+		deu.setFra("allemand");
+		deu.setSpa("alemán");
+		deu.setZho("德语");
+		deu.setRus("немецкий");
+		deu.setDeu("Deutsch");
+		deu.setIcon("");
 
-		Speaks speaks1 = speaksRepository.save(speaks);
+		deu = languageRepository.save(deu);
 
+		Speaks speaksEn = new Speaks();
+		speaksEn.setLanguageLevel(Speaks.LanguageLevel.A1);
+		speaksEn.setLanguage(en);
+		speaksEn.setPerson(person);
 
+		Speaks speaksDe = new Speaks();
+		speaksDe.setPerson(person);
+		speaksDe.setLanguage(deu);
+		speaksDe.setLanguageLevel(Speaks.LanguageLevel.NATIVE);
+
+		speaksRepository.save(speaksEn);
+		speaksRepository.save(speaksDe);
 	}
 }
