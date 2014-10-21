@@ -6,8 +6,6 @@ return (
 
 
 <div className="job-history">
-	<h2>Job history: </h2>
-
 	<button type="button" className="btn btn-warning btn-add">ADD company to job history</button>
 
 	<div className="job-history-item">

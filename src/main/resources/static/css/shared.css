@@ -46,12 +46,15 @@ h2{
 }
 
 
-ul.nav-justified{
+ul.nav{
     display: table;
+    width: 100%;
 }
 
-ul.nav-justified li{
+ul.nav li{
     width: auto;
+    float: none;
+    display: table-cell;
 }
 
 
