@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import jobs.opportunities.entity.Language;
 
-@RepositoryRestResource(collectionResourceRel = "language", path = "language")
+@RepositoryRestResource
 public interface LanguageRepository extends PagingAndSortingRepository<Language, Long> {
 
 }

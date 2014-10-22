@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ import jobs.opportunities.repository.SpeaksRepository;
 @Import(RepositoryRestMvcConfiguration.class)
 @EnableAutoConfiguration
 @ComponentScan(excludeFilters = @ComponentScan.Filter({ Service.class, Configuration.class }))  //with no default packages set scans from this package higher
-public class Application {
+public class Application extends RepositoryRestMvcConfiguration {
 
 	@Autowired
 	PersonRepository personRepository;
@@ -35,6 +36,11 @@ public class Application {
 	@Autowired
 	SpeaksRepository speaksRepository;
 
+	@Override
+	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+		config.exposeIdsFor(Speaks.class);
+		config.setReturnBodyOnCreate(true);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -55,7 +61,7 @@ public class Application {
 		en.setId2("en");
 		en.setId3("eng");
 		en.setNativ("English");
-		en.setEng("eng");
+		en.setEng("English");
 		en.setFra("anglais");
 		en.setSpa("inglés");
 		en.setZho("英语");

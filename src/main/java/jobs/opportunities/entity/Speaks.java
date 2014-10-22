@@ -1,18 +1,23 @@
 package jobs.opportunities.entity;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import jobs.opportunities.entity.common.Searchable;
+import jobs.opportunities.entity.common.Visible;
 
 @Entity
 //@Table(uniqueConstraints=@UniqueConstraint(columnNames={"person", "language"}))
-public class Speaks {
+public class Speaks implements Searchable, Visible {
 
-	public static enum LanguageLevel{
-		A1,A2,B1,B2,C1,C2,NATIVE
+	public static enum LanguageLevel {
+		A1, A2, B1, B2, C1, C2, NATIVE
 	}
 
 	@Id
@@ -25,7 +30,19 @@ public class Speaks {
 	@ManyToOne
 	private Language language;
 
+	@NotNull
+	@Column(nullable = false)
 	private LanguageLevel languageLevel;
+
+	@NotNull
+	@Column(nullable = false)
+	private Searchability searchability = Searchability.SEARCHABLE;
+
+	@NotNull
+	@Column(nullable = false)
+	private Visibility visibility = Visibility.PUBLIC;
+
+
 
 
 	public long getId() {
@@ -58,6 +75,22 @@ public class Speaks {
 
 	public void setLanguageLevel(LanguageLevel languageLevel) {
 		this.languageLevel = languageLevel;
+	}
+
+	public Searchability getSearchability() {
+		return searchability;
+	}
+
+	public void setSearchability(Searchability searchability) {
+		this.searchability = searchability;
+	}
+
+	public Visibility getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(Visibility visibility) {
+		this.visibility = visibility;
 	}
 }
 

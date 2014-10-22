@@ -328,11 +328,14 @@ ul[datepicker-popup-wrap] li{
     margin: 0 5px;
 }
 
-.language.cz{
+.language.ces{
     background: url(../images/flags/Czech-Republic.png) no-repeat left center;
 }
-.language.en{
+.language.eng{
     background: url(../images/flags/United-Kingdom.png) no-repeat left center;
+}
+.language.deu{
+    background: url(../images/flags/Germany.png) no-repeat left center;
 }
 
 .contact .ico{

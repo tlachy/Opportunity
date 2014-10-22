@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import jobs.opportunities.entity.Person;
 
-@RepositoryRestResource(collectionResourceRel = "person", path = "person")
+@RepositoryRestResource
 public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
 
 }
