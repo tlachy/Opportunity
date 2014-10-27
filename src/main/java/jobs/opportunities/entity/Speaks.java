@@ -40,7 +40,7 @@ public class Speaks implements Searchable, Visible {
 
 	@NotNull
 	@Column(nullable = false)
-	private Visibility visibility = Visibility.PUBLIC;
+	private Visibility visibility = Visibility.PUBLICLY_VISIBLE;
 
 
 

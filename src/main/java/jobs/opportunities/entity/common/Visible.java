@@ -3,7 +3,7 @@ package jobs.opportunities.entity.common;
 public interface Visible {
 
 	public static enum Visibility {
-		NOT_VISIBLE, ONLY_IN_INTERVIEW, PUBLIC
+		NOT_VISIBLE, VISIBLE_IN_INTERVIEW, PUBLICLY_VISIBLE
 	}
 
 	Visibility getVisibility();
