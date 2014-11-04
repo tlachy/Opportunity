@@ -16,7 +16,7 @@ public class Language {
 	private long id;
 
 	@OneToMany(mappedBy="language")
-	Set<Speaks> speaks = new HashSet<Speaks>();
+	Set<SpokenLanguage> speaks = new HashSet<SpokenLanguage>();
 
 	private String id1;
 

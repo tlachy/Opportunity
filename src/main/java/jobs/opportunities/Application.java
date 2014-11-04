@@ -13,12 +13,15 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.stereotype.Service;
 
+import jobs.opportunities.entity.FirstName;
 import jobs.opportunities.entity.Language;
 import jobs.opportunities.entity.Person;
-import jobs.opportunities.entity.Speaks;
+import jobs.opportunities.entity.SpokenLanguage;
+import jobs.opportunities.entity.common.LanguageLevel;
+import jobs.opportunities.repository.FirstNameRepository;
 import jobs.opportunities.repository.LanguageRepository;
 import jobs.opportunities.repository.PersonRepository;
-import jobs.opportunities.repository.SpeaksRepository;
+import jobs.opportunities.repository.SpokenLanguageRepository;
 
 @Configuration
 @EnableJpaRepositories
@@ -34,11 +37,14 @@ public class Application extends RepositoryRestMvcConfiguration {
 	LanguageRepository languageRepository;
 
 	@Autowired
-	SpeaksRepository speaksRepository;
+	SpokenLanguageRepository spokenLanguageRepository;
+
+	@Autowired
+	FirstNameRepository firstNameRepository;
 
 	@Override
 	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(Speaks.class);
+		config.exposeIdsFor(SpokenLanguage.class, Language.class, Person.class, FirstName.class);
 		config.setReturnBodyOnCreate(true);
 	}
 
@@ -50,10 +56,14 @@ public class Application extends RepositoryRestMvcConfiguration {
 	private void load() {
 
 		Person person1 = new Person();
-		person1.setFirstName("Petr");
 		person1.setLastName("Nudle");
-
 		Person person = personRepository.save(person1);
+
+		FirstName firstName = new FirstName();
+		firstName.setValue("Petr");
+		firstName.setPerson(person);
+		firstNameRepository.save(firstName);
+
 
 
 		Language en = new Language();
@@ -86,17 +96,17 @@ public class Application extends RepositoryRestMvcConfiguration {
 
 		deu = languageRepository.save(deu);
 
-		Speaks speaksEn = new Speaks();
-		speaksEn.setLanguageLevel(Speaks.LanguageLevel.A1);
+		SpokenLanguage speaksEn = new SpokenLanguage();
+		speaksEn.setLanguageLevel(LanguageLevel.A1);
 		speaksEn.setLanguage(en);
 		speaksEn.setPerson(person);
 
-		Speaks speaksDe = new Speaks();
+		SpokenLanguage speaksDe = new SpokenLanguage();
 		speaksDe.setPerson(person);
 		speaksDe.setLanguage(deu);
-		speaksDe.setLanguageLevel(Speaks.LanguageLevel.NATIVE);
+		speaksDe.setLanguageLevel(LanguageLevel.NATIVE);
 
-		speaksRepository.save(speaksEn);
-		speaksRepository.save(speaksDe);
+		spokenLanguageRepository.save(speaksEn);
+		spokenLanguageRepository.save(speaksDe);
 	}
 }

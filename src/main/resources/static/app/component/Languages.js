@@ -2,109 +2,166 @@
 
 var SpokenLanguages = React.createClass({
 
+mixins: [OverlayMixin],
+
 getInitialState: function() {
-	return {speakses: []};
+	return { spokenLanguages: [], languages: [], newSpokenLanguage: {languageLevel: "", person: "../person/1", language: {}}, isModalOpen: false };
 },
 componentDidMount: function() {
-	this.loadFromServer();
+	this.loadSpokenLanguages();
+	this.loadLanguages();
 },
-
-loadFromServer: function() {
+handleToggle: function () {
+	this.setState( {isModalOpen: !this.state.isModalOpen});
+},
+addSpokenLanguage: function () {
+	this.saveSpokenLanguage( this.state.newSpokenLanguage );
+	this.handleToggle();
+},
+loadLanguages: function() {
+	$.ajax({
+		url: "../language", dataType: 'json',
+		success: function(langs) {
+			this.setState({languages: langs._embedded.languages});
+	}.bind(this),
+		error: function(xhr, status, err) {
+		console.error("../language", status, err.toString());
+	}.bind(this)
+	});
+},
+loadSpokenLanguages: function() {
 	$.ajax({
 		url: this.props.url, dataType: 'json',
-		success: function(speakses) {
-			this.setState({speakses: speakses._embedded.speakses});
+		success: function(spokenLangs) {
+			jQuery.isEmptyObject(spokenLangs) ? this.setState( {spokenLanguages: []}) : this.setState({spokenLanguages: spokenLangs._embedded.spokenLanguage});
 	}.bind(this),
 		error: function(xhr, status, err) {
 		console.error(this.props.url, status, err.toString());
 	}.bind(this)
 	});
 },
-deleteOnServer: function(id) {
-	$.ajax({ url: "../speakses/" + id, dataType: 'json', type: 'DELETE',
+deleteSpokenLanguage: function(id) {
+	$.ajax({ url: "../spokenLanguage/" + id, dataType: 'json', type: 'DELETE',
 	success: function(result) {
 		console.log(result);
-		this.loadFromServer();
+		this.loadSpokenLanguages();
 	}.bind(this),
 		error: function(xhr, status, err) {
 		console.error(this.props.url, status, err.toString());
 	}.bind(this)
 	});
 },
-updateOnServer: function(id, data) {
-	$.ajax({ url: "../speakses/" + id, dataType: 'json', type: 'PATCH', data : JSON.stringify(data) , headers : {'Accept' : 'application/json', 'Content-Type' : 'application/json'},
+updateSpokenLanguage: function(id, data) {
+	$.ajax({ url: "../spokenLanguage/" + id, dataType: 'json', type: 'PATCH', data : JSON.stringify(data) , headers : {'Accept' : 'application/json', 'Content-Type' : 'application/json'},
 		success: function(result) {
 		console.log(result);
-		this.loadFromServer();
+		this.loadSpokenLanguages();
 	}.bind(this),
 		error: function(xhr, status, err) {
 		console.error(this.props.url, status, err.toString());
 	}.bind(this)
 	});
 },
-
-handle: function(action, id, data) {
-	if(action == 'DELETE'){
-		this.deleteOnServer(id);
-	} else {
-		this.updateOnServer(id, data);
-	}
+saveSpokenLanguage: function(data) {
+	$.ajax({ url: "../spokenLanguage", dataType: 'json', type: 'POST', data : JSON.stringify(data) , headers : {'Accept' : 'application/json', 'Content-Type' : 'application/json'},
+		success: function(result) {
+		console.log(result);
+		this.loadSpokenLanguages();
+	}.bind(this),
+		error: function(xhr, status, err) {
+		console.error("../spokenLanguage", status, err.toString());
+	}.bind(this)
+	});
 },
 
-
 render: function() {
-var handleFunc = this.handle;
-var speaksesNodes = this.state.speakses.map(function (speaks) {
+	var that = this;
 
-var setLevel = function(key){
-	handleFunc("UPDATE", speaks.id, {languageLevel: key});
-}
+	var spokenLanguagesNodes = this.state.spokenLanguages.map(function (sl) {
 
-return (
-<Language key={speaks.id} url={speaks._links.language.href}>
-	<DropdownButton bsStyle="default" onSelect={setLevel}  title={speaks.languageLevel}>
-		<MenuItem key="A1">A1</MenuItem>
-		<MenuItem key="A2">A2</MenuItem>
-		<MenuItem key="B1">B1</MenuItem>
-		<MenuItem key="B2">B2</MenuItem>
-		<MenuItem key="C1">C1</MenuItem>
-		<MenuItem key="C2">C2</MenuItem>
-		<MenuItem key="NATIVE">NATIVE</MenuItem>
-	</DropdownButton>
-	<VSRActions id={speaks.id} visibility={speaks.visibility} searchability={speaks.searchability} handleAction={handleFunc} />
-</Language>
-);
-});
-return (
-<div>
-	{speaksesNodes}
-	<button type="button" className="btn btn-warning btn-add">Add language</button>
-</div>
+		return (
+		<Language key={sl.id} url={sl._links.language.href}>
+			<DropdownButton bsStyle="default" onSelect={function(key){ that.updateSpokenLanguage(sl.id, {languageLevel: key});  }} title={sl.languageLevel}>
+				<MenuItem key="A1">A1</MenuItem>
+				<MenuItem key="A2">A2</MenuItem>
+				<MenuItem key="B1">B1</MenuItem>
+				<MenuItem key="B2">B2</MenuItem>
+				<MenuItem key="C1">C1</MenuItem>
+				<MenuItem key="C2">C2</MenuItem>
+				<MenuItem key="NATIVE">NATIVE</MenuItem>
+			</DropdownButton>
+			<VSDActions id={sl.id} visibility={sl.visibility} searchability={sl.searchability} handleDelete={that.deleteSpokenLanguage} handleUpdate={that.updateSpokenLanguage} />
+		</Language>
+		);
+	});
+	return (
+		<div>
+			{spokenLanguagesNodes}
+			<Button onClick={this.handleToggle} bsStyle="warning">Add language</Button>
+		</div>
 
-);
-}
+	);
+},
+renderOverlay: function () {
+	if (!this.state.isModalOpen) {
+		return <span/>;
+	}
+	var that = this;
+
+	var langsNodes = this.state.languages.map(function (lang) {
+			var classString = 'language ' + lang.id1;
+			return (<MenuItem key={lang.id} onSelect={function(key){  that.state.newSpokenLanguage.language = lang;  that.forceUpdate();  }}>
+						<span className={classString}></span>{lang.nativ} ({lang.eng})
+					</MenuItem> );
+	});
+
+	return (
+		<Modal title="Add language" onRequestHide={this.handleToggle}>
+
+			<div className="modal-body">
+				<DropdownButton bsStyle="default" onSelect={function(key){  that.state.newSpokenLanguage.languageLevel = key;  that.forceUpdate(); }}  title={this.state.newSpokenLanguage.languageLevel}>
+					<MenuItem key="A1">A1</MenuItem>
+					<MenuItem key="A2">A2</MenuItem>
+					<MenuItem key="B1">B1</MenuItem>
+					<MenuItem key="B2">B2</MenuItem>
+					<MenuItem key="C1">C1</MenuItem>
+					<MenuItem key="C2">C2</MenuItem>
+					<MenuItem key="NATIVE">NATIVE</MenuItem>
+				</DropdownButton>
+				<DropdownButton bsStyle="default" title="Select a lang">
+					{langsNodes}
+				</DropdownButton>
+			</div>
+
+			<div className="modal-footer">
+				<Button onClick={this.addSpokenLanguage}>Add</Button>
+				<Button onClick={this.handleToggle}>Close</Button>
+			</div>
+		</Modal>
+	);
+	}
 });
 
 
 var Language = React.createClass({
 
 getInitialState: function() {
-return {lang: {}};
+	return {lang: {}};
 },
 loadCommentsFromServer: function() {
-$.ajax({
-url: this.props.url,
-dataType: 'json',
-success: function(language) {
-this.setState({lang: language});
-}.bind(this),
-error: function(xhr, status, err) {
-console.error(this.props.url, status, err.toString());
-}.bind(this)
-});
+	$.ajax({
+		url: this.props.url,
+		dataType: 'json',
+		success: function(language) {
+	this.setState({lang: language});
+	}.bind(this),
+		error: function(xhr, status, err) {
+		console.error(this.props.url, status, err.toString());
+	}.bind(this)
+	});
 },
 componentDidMount: function() {
-this.loadCommentsFromServer();
+	this.loadCommentsFromServer();
 },
 
 render: function() {
@@ -121,59 +178,3 @@ return (
 );
 }
 });
-
-
-var VSRActions = React.createClass({
-
-getInitialState: function() {
-	return {visibility: this.props.visibility, searchability: this.props.searchability};
-},
-
-setVisibility: function(key) {
-	this.state.visibility = key;
-	this.props.handleAction(key, this.props.id, {visibility: key});
-
-},
-setSearchability: function(key) {
-	this.state.searchability = key;
-    this.props.handleAction(key, this.props.id, {searchability: key});
-
-},
-handleDelete: function(){
-	this.props.handleAction('DELETE', this.props.id);
-},
-
-
-render: function() {
-
-var visibilityClass = 'action-ico dropdown-toggle' +  this.state.visibility;
-var searchabilityClass = 'action-ico dropdown-toggle' +  this.state.searchability;
-
-return (
-
-<div className="actions">
-
-	<DropdownButton onSelect={this.setVisibility} className={visibilityClass}>
-		<MenuItem key="PUBLICLY_VISIBLE"><span className="action-ico ico-visible"></span>visible</MenuItem>
-		<MenuItem key="VISIBLE_IN_INTERVIEW"><span className="action-ico partial-visible"></span>visible in interviews</MenuItem>
-		<MenuItem key="NOT_VISIBLE"><span className="action-ico ico-invisible"></span>invisible</MenuItem>
-	</DropdownButton>
-
-	<DropdownButton onSelect={this.setSearchability} className={searchabilityClass}>
-		<MenuItem key="SEARCHABLE"><span className="action-ico searchable"></span>I am searchable by this</MenuItem>
-		<MenuItem key="NOT_SEARCHABLE"><span className="action-ico not-searchable"></span>I am NOT searchable by this</MenuItem>
-	</DropdownButton>
-
-	<input type="button" value="Delete" onClick={this.handleDelete} className="action-ico ico-delete"/>
-
-</div>
-
-);
-}
-});
-
-
-
-
-
-

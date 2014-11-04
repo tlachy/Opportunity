@@ -27,7 +27,7 @@ render: function() {
 		  <Education />
 
         <h2> Languages: </h2>
-		<SpokenLanguages url="../persons/1/speaks" />
+		<SpokenLanguages url="../person/1/spokenLanguage" />
 
         <h2> Contacts: </h2>
         <Contacts />

@@ -1,4 +1,4 @@
-package jobs.opportunities.entity.common;
+package jobs.opportunities.entity.common.interfaces;
 
 public interface Visible {
 

@@ -9,16 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import jobs.opportunities.entity.common.Searchable;
-import jobs.opportunities.entity.common.Visible;
+import jobs.opportunities.entity.common.LanguageLevel;
+import jobs.opportunities.entity.common.interfaces.Searchable;
+import jobs.opportunities.entity.common.interfaces.Visible;
 
 @Entity
 //@Table(uniqueConstraints=@UniqueConstraint(columnNames={"person", "language"}))
-public class Speaks implements Searchable, Visible {
+public class SpokenLanguage implements Searchable, Visible {
 
-	public static enum LanguageLevel {
-		A1, A2, B1, B2, C1, C2, NATIVE
-	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
