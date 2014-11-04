@@ -24,14 +24,20 @@ public class Person {
 	private long id;
 
 	@OneToMany(mappedBy="person", orphanRemoval=true)
+	Set<JobPosition> jobPosition = new HashSet<JobPosition>();
+
+	@OneToMany(mappedBy="person", orphanRemoval=true)
 	Set<SpokenLanguage> spokenLanguage = new HashSet<SpokenLanguage>();
 
 	@OneToOne(mappedBy="person", orphanRemoval=true)
 	private FirstName firstName;
 
-	private String middleNames;
+	@OneToOne(mappedBy="person", orphanRemoval=true)
+	private LastName lastName;
 
-	private String lastName;
+	@OneToOne(mappedBy="person", orphanRemoval=true)
+	private MiddleNames middleNames;
+
 
 	private LocalDate dateOfBorn;
 
@@ -45,6 +51,8 @@ public class Person {
 	private Religion religion;
 
 
+
+	//<editor-fold desc="G&Ss>
 	public long getId() {
 		return id;
 	}
@@ -69,20 +77,20 @@ public class Person {
 		this.firstName = firstName;
 	}
 
-	public String getMiddleNames() {
-		return middleNames;
-	}
-
-	public void setMiddleNames(String middleNames) {
-		this.middleNames = middleNames;
-	}
-
-	public String getLastName() {
+	public LastName getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(LastName lastName) {
 		this.lastName = lastName;
+	}
+
+	public MiddleNames getMiddleNames() {
+		return middleNames;
+	}
+
+	public void setMiddleNames(MiddleNames middleNames) {
+		this.middleNames = middleNames;
 	}
 
 	public LocalDate getDateOfBorn() {
@@ -124,5 +132,6 @@ public class Person {
 	public void setReligion(Religion religion) {
 		this.religion = religion;
 	}
+	//</editor-fold>
 }
 

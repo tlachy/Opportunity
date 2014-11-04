@@ -1,5 +1,7 @@
 package jobs.opportunities;
 
+import java.time.LocalDate;
+import java.time.Month;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,19 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 import org.springframework.stereotype.Service;
 
 import jobs.opportunities.entity.FirstName;
+import jobs.opportunities.entity.JobPosition;
 import jobs.opportunities.entity.Language;
+import jobs.opportunities.entity.LastName;
+import jobs.opportunities.entity.MiddleNames;
 import jobs.opportunities.entity.Person;
 import jobs.opportunities.entity.SpokenLanguage;
 import jobs.opportunities.entity.common.LanguageLevel;
+import jobs.opportunities.entity.common.PositionType;
 import jobs.opportunities.repository.FirstNameRepository;
+import jobs.opportunities.repository.JobPositionRepository;
 import jobs.opportunities.repository.LanguageRepository;
+import jobs.opportunities.repository.LastNameRepository;
+import jobs.opportunities.repository.MiddleNamesRepository;
 import jobs.opportunities.repository.PersonRepository;
 import jobs.opportunities.repository.SpokenLanguageRepository;
 
@@ -42,9 +51,19 @@ public class Application extends RepositoryRestMvcConfiguration {
 	@Autowired
 	FirstNameRepository firstNameRepository;
 
+	@Autowired
+	LastNameRepository lastNameRepository;
+
+	@Autowired
+	MiddleNamesRepository middleNamesRepository;
+
+	@Autowired
+	JobPositionRepository jobPositionRepository;
+
+
 	@Override
 	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(SpokenLanguage.class, Language.class, Person.class, FirstName.class);
+		config.exposeIdsFor(SpokenLanguage.class, Language.class, Person.class, FirstName.class, JobPosition.class);
 		config.setReturnBodyOnCreate(true);
 	}
 
@@ -56,14 +75,82 @@ public class Application extends RepositoryRestMvcConfiguration {
 	private void load() {
 
 		Person person1 = new Person();
-		person1.setLastName("Nudle");
+		person1.setDateOfBorn(LocalDate.of(1948, Month.NOVEMBER, 20));
 		Person person = personRepository.save(person1);
 
 		FirstName firstName = new FirstName();
-		firstName.setValue("Petr");
+		firstName.setValue("George");
 		firstName.setPerson(person);
 		firstNameRepository.save(firstName);
 
+		LastName lastName = new LastName();
+		lastName.setValue("Martin");
+		lastName.setPerson(person);
+		lastNameRepository.save(lastName);
+
+		MiddleNames middleNames = new MiddleNames();
+		middleNames.setValue("Raymond Richard");
+		middleNames.setPerson(person);
+		middleNamesRepository.save(middleNames);
+
+		JobPosition jobPosition = new JobPosition();
+		jobPosition.setPerson(person);
+		jobPosition.setCompany("IBA CZ");
+		jobPosition.setProject("Human resources management and aplicant management system");
+		jobPosition.setPosition("Java Developer");
+		jobPosition.setDesc("Doc Hastings, protects and promotes hydropower resources by ending practices that diminish existing hydropower, cutting regulatory red-tape, generating new non-federal funding for new projects and improving transparency. Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions.");
+		jobPosition.setTechnologies("HTML/CSS, Javascript, jQuery, Flash, Python, Ruby, ASP.NET, Wordpress, Drupal, Joomla");
+
+		jobPosition.setFromMonth((byte)6);
+		jobPosition.setFromYear((short) 1998);
+
+		jobPosition.setToMonth((byte) 11);
+		jobPosition.setToYear((short) 1999);
+
+		jobPosition.setPositionType(PositionType.Regular);
+		jobPosition.setWorkingLanguage("eng");
+		
+		jobPositionRepository.save(jobPosition);
+
+
+		JobPosition jobPosition1 = new JobPosition();
+		jobPosition1.setPerson(person);
+		jobPosition1.setCompany("IBA CZ");
+		jobPosition1.setPosition("Java Developer");
+		jobPosition1.setProject("Aplicant management system");
+		jobPosition1.setDesc("Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
+		jobPosition1.setTechnologies("PHP, Nette, Flash, Python, Ruby, ASP.NET, Wordpress, Drupal, Joomla");
+
+		jobPosition1.setFromMonth((byte)6);
+		jobPosition1.setFromYear((short) 1999);
+
+		jobPosition1.setToMonth((byte) 11);
+		jobPosition1.setToYear((short) 2003);
+
+		jobPosition1.setPositionType(PositionType.Manager);
+		jobPosition1.setWorkingLanguage("deu");
+
+		jobPositionRepository.save(jobPosition1);
+
+
+		JobPosition jobPosition2 = new JobPosition();
+		jobPosition2.setPerson(person);
+		jobPosition2.setCompany("IHolding s.r.o.");
+		jobPosition2.setPosition("HTML Coder");
+		jobPosition2.setProject("Company website");
+		jobPosition2.setDesc("Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
+		jobPosition2.setTechnologies("HTML/CSS, Javascript, jQuery");
+
+		jobPosition2.setFromMonth((byte)6);
+		jobPosition2.setFromYear((short) 2004);
+
+		jobPosition2.setToMonth((byte) 3);
+		jobPosition2.setToYear((short) 2012);
+
+		jobPosition2.setPositionType(PositionType.Executive);
+		jobPosition2.setWorkingLanguage("deu");
+
+		jobPositionRepository.save(jobPosition2);
 
 
 		Language en = new Language();

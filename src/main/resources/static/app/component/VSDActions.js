@@ -23,9 +23,6 @@ render: function() {
 
 	var visibilityClass = 'action-ico dropdown-toggle' +  this.state.visibility;
 	var searchabilityClass = 'action-ico dropdown-toggle' +  this.state.searchability;
-	console.log(this.props.handleDelete);
-
-
 
 	return (
 

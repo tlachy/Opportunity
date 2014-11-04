@@ -44,8 +44,48 @@ render: function() {
 		</div>
 	);
 }
-
 });
+
+
+var DatePickerTest = React.createClass({
+	handleDatePickerChange: function (eventArgs){
+	console.log("handleDatePickerChange-onChangeTextBox:" + eventArgs.target.value );
+},
+componentDidMount: function () {
+
+	var textBoxId = "TextBox";
+	var maxDate = new Date();
+	console.log(maxDate);
+
+	$("#" + textBoxId).datepicker({
+		onSelect: function(date){
+			console.log(date);
+		},
+		showOn: 'button',
+		buttonText: 'Show Date',
+		buttonImageOnly: true,
+		buttonImage: 'http://i1375.photobucket.com/albums/ag446/eowyn_g/Work/icon_calendar_zpse819d8d4.gif',
+		maxDate: maxDate
+		});
+	$(".ui-datepicker-trigger").each(function (index){
+		$(this).insertBefore( $(this).prev('input') );
+	});
+	$("#" + textBoxId).datepicker('setDate',  new Date());
+},
+render: function() {
+	console.log("render datepicker");
+return (
+<div className="form-group">
+	<label>Date of born:</label>
+	<p className="input-group">
+		<input type='text' id="TextBox" onChange={this.handleDatePickerChange} className="form-control"/>
+	</p>
+</div>
+);
+}
+});
+
+
 
 
 var PersonalDetails = React.createClass({
@@ -55,76 +95,13 @@ return (
 
 <div className="personalForm">
 
-
-
 	<form className="" role="form">
 
-
 		<PersonAttribute url="/firstName/" label="First name" />
+		<PersonAttribute url="/middleNames/" label="Middle names" />
+		<PersonAttribute url="/lastName/" label="Last name" />
+		<DatePickerTest id="TextBox" />
 
-		<div className="form-group">
-			<label>First name:</label>
-			<input type="text" placeholder="First Name" className="form-control" />
-
-			<div className="dropdown-holder">
-				<span title="Visible" className="action-ico ico-visible dropdown-toggle" data-toggle="dropdown"></span>
-				<ul className="dropdown-menu" role="menu">
-					<li><span className="action-ico ico-visible"></span>visible</li>
-					<li><span className="action-ico partial-visible"></span>visible in interviews</li>
-					<li><span className="action-ico ico-invisible"></span>invisible</li>
-				</ul>
-			</div>
-
-			<div className="dropdown-holder">
-				<span title="Searchable" className="action-ico searchable  dropdown-toggle" data-toggle="dropdown"></span>
-				<ul className="dropdown-menu" role="menu">
-					<li><span className="action-ico searchable"></span>I am searchable by this</li>
-					<li><span className="action-ico not-searchable"></span>I am NOT searchable by this</li>
-				</ul>
-			</div>
-		</div>
-		<div className="form-group">
-			<label>Middle names:</label>
-			<input type="text" placeholder="Middle Names" className="form-control"/>
-
-			<div className="dropdown-holder">
-				<span title="Visible" className="action-ico ico-visible dropdown-toggle" data-toggle="dropdown"></span>
-				<ul className="dropdown-menu" role="menu">
-					<li><span className="action-ico ico-visible"></span>visible</li>
-					<li><span className="action-ico partial-visible"></span>visible in interviews</li>
-					<li><span className="action-ico ico-invisible"></span>invisible</li>
-				</ul>
-			</div>
-
-			<div className="dropdown-holder">
-				<span title="Searchable" className="action-ico searchable  dropdown-toggle" data-toggle="dropdown"></span>
-				<ul className="dropdown-menu" role="menu">
-					<li><span className="action-ico searchable"></span>I am searchable by this</li>
-					<li><span className="action-ico not-searchable"></span>I am NOT searchable by this</li>
-				</ul>
-			</div>
-		</div>
-		<div className="form-group">
-			<label>Last name:</label>
-			<input type="text" placeholder="Last Name" className="form-control"/>
-
-			<div className="dropdown-holder">
-				<span title="Invisible" className="action-ico ico-invisible dropdown-toggle" data-toggle="dropdown"></span>
-				<ul className="dropdown-menu" role="menu">
-					<li><span className="action-ico ico-visible"></span>visible</li>
-					<li><span className="action-ico partial-visible"></span>visible in interviews</li>
-					<li><span className="action-ico ico-invisible"></span>invisible</li>
-				</ul>
-			</div>
-
-			<div className="dropdown-holder">
-				<span title="Searchable" className="action-ico searchable  dropdown-toggle" data-toggle="dropdown"></span>
-				<ul className="dropdown-menu" role="menu">
-					<li><span className="action-ico searchable"></span>I am searchable by this</li>
-					<li><span className="action-ico not-searchable"></span>I am NOT searchable by this</li>
-				</ul>
-			</div>
-		</div>
 		<div className="form-group">
 			<label>Date of born:</label>
 			<p className="input-group">

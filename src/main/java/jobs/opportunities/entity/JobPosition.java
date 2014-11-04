@@ -1,27 +1,65 @@
 package jobs.opportunities.entity;
 
-import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+import jobs.opportunities.entity.common.PositionType;
 import jobs.opportunities.entity.common.interfaces.Searchable;
 import jobs.opportunities.entity.common.interfaces.Visible;
 
+@Entity
 public class JobPosition implements Searchable, Visible {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+	@ManyToOne
+	private Person person;
+
 	private String company;
-	private LocalDate from;
-	private LocalDate to;
-	private int timeOnPositionInMonth;
+
+	private byte fromMonth;
+	private short fromYear;
+
+	private byte toMonth;
+	private short toYear;
+
+	private int timeOnPositionInMonth = 0;
 	private String position;
 	private String project;
-	private String positionType;
+	private PositionType positionType;
 
-	private Language workingLanguage;
+	private String workingLanguage;
 
+	@Column(length = 2000)
 	private String desc;
-	private String technologies;
-	private Searchability searchability;
-	private Visibility visibility;
 
+
+	private String technologies;
+	private Searchability searchability = Searchability.SEARCHABLE;
+	private Visibility visibility = Visibility.PUBLICLY_VISIBLE;
+
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
 	public String getCompany() {
 		return company;
@@ -31,20 +69,36 @@ public class JobPosition implements Searchable, Visible {
 		this.company = company;
 	}
 
-	public LocalDate getFrom() {
-		return from;
+	public byte getFromMonth() {
+		return fromMonth;
 	}
 
-	public void setFrom(LocalDate from) {
-		this.from = from;
+	public void setFromMonth(byte fromMonth) {
+		this.fromMonth = fromMonth;
 	}
 
-	public LocalDate getTo() {
-		return to;
+	public short getFromYear() {
+		return fromYear;
 	}
 
-	public void setTo(LocalDate to) {
-		this.to = to;
+	public void setFromYear(short fromYear) {
+		this.fromYear = fromYear;
+	}
+
+	public byte getToMonth() {
+		return toMonth;
+	}
+
+	public void setToMonth(byte toMonth) {
+		this.toMonth = toMonth;
+	}
+
+	public short getToYear() {
+		return toYear;
+	}
+
+	public void setToYear(short toYear) {
+		this.toYear = toYear;
 	}
 
 	public int getTimeOnPositionInMonth() {
@@ -71,19 +125,19 @@ public class JobPosition implements Searchable, Visible {
 		this.project = project;
 	}
 
-	public String getPositionType() {
+	public PositionType getPositionType() {
 		return positionType;
 	}
 
-	public void setPositionType(String positionType) {
+	public void setPositionType(PositionType positionType) {
 		this.positionType = positionType;
 	}
 
-	public Language getWorkingLanguage() {
+	public String getWorkingLanguage() {
 		return workingLanguage;
 	}
 
-	public void setWorkingLanguage(Language workingLanguage) {
+	public void setWorkingLanguage(String workingLanguage) {
 		this.workingLanguage = workingLanguage;
 	}
 
