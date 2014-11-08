@@ -76,7 +76,7 @@ render: function() {
 	console.log("render datepicker");
 return (
 <div className="form-group">
-	<label>Date of born:</label>
+	<label>Date of birth:</label>
 	<p className="input-group">
 		<input type='text' id="TextBox" onChange={this.handleDatePickerChange} className="form-control"/>
 	</p>
@@ -103,7 +103,7 @@ return (
 		<DatePickerTest id="TextBox" />
 
 		<div className="form-group">
-			<label>Date of born:</label>
+			<label>Date of birth:</label>
 			<p className="input-group">
 				<input type="text" className="form-control" datepicker-popup="yyyy/MM/dd" ng-model="dt" is-open="opened" show-weeks="false" datepicker-options="dateOptions" close-text="Close" />
                                     <span className="input-group-btn">
