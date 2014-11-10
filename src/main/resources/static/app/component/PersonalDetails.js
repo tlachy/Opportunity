@@ -47,47 +47,6 @@ render: function() {
 });
 
 
-var DatePickerTest = React.createClass({
-	handleDatePickerChange: function (eventArgs){
-	console.log("handleDatePickerChange-onChangeTextBox:" + eventArgs.target.value );
-},
-componentDidMount: function () {
-
-	var textBoxId = "TextBox";
-	var maxDate = new Date();
-	console.log(maxDate);
-
-	$("#" + textBoxId).datepicker({
-		onSelect: function(date){
-			console.log(date);
-		},
-		showOn: 'button',
-		buttonText: 'Show Date',
-		buttonImageOnly: true,
-		buttonImage: 'http://i1375.photobucket.com/albums/ag446/eowyn_g/Work/icon_calendar_zpse819d8d4.gif',
-		maxDate: maxDate
-		});
-	$(".ui-datepicker-trigger").each(function (index){
-		$(this).insertBefore( $(this).prev('input') );
-	});
-	$("#" + textBoxId).datepicker('setDate',  new Date());
-},
-render: function() {
-	console.log("render datepicker");
-return (
-<div className="form-group">
-	<label>Date of birth:</label>
-	<p className="input-group">
-		<input type='text' id="TextBox" onChange={this.handleDatePickerChange} className="form-control"/>
-	</p>
-</div>
-);
-}
-});
-
-
-
-
 var PersonalDetails = React.createClass({
 
 render: function() {
@@ -100,7 +59,7 @@ return (
 		<PersonAttribute url="/firstName/" label="First name" />
 		<PersonAttribute url="/middleNames/" label="Middle names" />
 		<PersonAttribute url="/lastName/" label="Last name" />
-		<DatePickerTest id="TextBox" />
+
 
 		<div className="form-group">
 			<label>Date of birth:</label>

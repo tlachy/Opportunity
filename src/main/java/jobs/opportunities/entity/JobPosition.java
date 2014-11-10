@@ -23,11 +23,11 @@ public class JobPosition implements Searchable, Visible {
 
 	private String company;
 
-	private byte fromMonth;
-	private short fromYear;
+	private String fromMonth;
+	private String fromYear;
 
-	private byte toMonth;
-	private short toYear;
+	private String toMonth;
+	private String toYear;
 
 	private int timeOnPositionInMonth = 0;
 	private String position;
@@ -69,35 +69,35 @@ public class JobPosition implements Searchable, Visible {
 		this.company = company;
 	}
 
-	public byte getFromMonth() {
+	public String getFromMonth() {
 		return fromMonth;
 	}
 
-	public void setFromMonth(byte fromMonth) {
+	public void setFromMonth(String fromMonth) {
 		this.fromMonth = fromMonth;
 	}
 
-	public short getFromYear() {
+	public String getFromYear() {
 		return fromYear;
 	}
 
-	public void setFromYear(short fromYear) {
+	public void setFromYear(String fromYear) {
 		this.fromYear = fromYear;
 	}
 
-	public byte getToMonth() {
+	public String getToMonth() {
 		return toMonth;
 	}
 
-	public void setToMonth(byte toMonth) {
+	public void setToMonth(String toMonth) {
 		this.toMonth = toMonth;
 	}
 
-	public short getToYear() {
+	public String getToYear() {
 		return toYear;
 	}
 
-	public void setToYear(short toYear) {
+	public void setToYear(String toYear) {
 		this.toYear = toYear;
 	}
 

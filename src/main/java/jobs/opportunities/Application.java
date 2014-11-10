@@ -101,11 +101,11 @@ public class Application extends RepositoryRestMvcConfiguration {
 		jobPosition.setDesc("Doc Hastings, protects and promotes hydropower resources by ending practices that diminish existing hydropower, cutting regulatory red-tape, generating new non-federal funding for new projects and improving transparency. Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions.");
 		jobPosition.setTechnologies("HTML/CSS, Javascript, jQuery, Flash, Python, Ruby, ASP.NET, Wordpress, Drupal, Joomla");
 
-		jobPosition.setFromMonth((byte)6);
-		jobPosition.setFromYear((short) 1998);
+		jobPosition.setFromMonth("6");
+		jobPosition.setFromYear("1998");
 
-		jobPosition.setToMonth((byte) 11);
-		jobPosition.setToYear((short) 1999);
+		jobPosition.setToMonth("11");
+		jobPosition.setToYear("1999");
 
 		jobPosition.setPositionType(PositionType.Regular);
 		jobPosition.setWorkingLanguage("eng");
@@ -121,11 +121,11 @@ public class Application extends RepositoryRestMvcConfiguration {
 		jobPosition1.setDesc("Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
 		jobPosition1.setTechnologies("PHP, Nette, Flash, Python, Ruby, ASP.NET, Wordpress, Drupal, Joomla");
 
-		jobPosition1.setFromMonth((byte)6);
-		jobPosition1.setFromYear((short) 1999);
+		jobPosition1.setFromMonth("6");
+		jobPosition1.setFromYear("1999");
 
-		jobPosition1.setToMonth((byte) 11);
-		jobPosition1.setToYear((short) 2003);
+		jobPosition1.setToMonth("11");
+		jobPosition1.setToYear("2003");
 
 		jobPosition1.setPositionType(PositionType.Manager);
 		jobPosition1.setWorkingLanguage("deu");
@@ -141,11 +141,11 @@ public class Application extends RepositoryRestMvcConfiguration {
 		jobPosition2.setDesc("Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
 		jobPosition2.setTechnologies("HTML/CSS, Javascript, jQuery");
 
-		jobPosition2.setFromMonth((byte)6);
-		jobPosition2.setFromYear((short) 2004);
+		jobPosition2.setFromMonth("6");
+		jobPosition2.setFromYear("2004");
 
-		jobPosition2.setToMonth((byte) 3);
-		jobPosition2.setToYear((short) 2012);
+		jobPosition2.setToMonth("3");
+		jobPosition2.setToYear("2012");
 
 		jobPosition2.setPositionType(PositionType.Executive);
 		jobPosition2.setWorkingLanguage("deu");

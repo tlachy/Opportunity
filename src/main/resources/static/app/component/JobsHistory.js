@@ -31,11 +31,13 @@ update: function(id, data) {
 	});
 },
 render: function() {
+console.log("called 0");
+var that = this;
 
 var jobPositions = this.state.jobPositions.map(function (jp) {
 
 return (
-		<JobsHistoryItem key={jp.id} jhi={jp}></JobsHistoryItem>
+		<JobsHistoryItem key={jp.id} jhi={jp} update={that.update}></JobsHistoryItem>
 );
 });
 
@@ -60,59 +62,67 @@ return (
 var JobsHistoryItem = React.createClass({
 
 getInitialState: function() {
-	return { jhi: this.props.jhi };
+	return {id: this.props.jhi.id, fromMonth: this.props.jhi.fromMonth, fromYear: this.props.jhi.fromYear, toMonth: this.props.jhi.toMonth, toYear: this.props.jhi.toYear,
+	positionType: this.props.jhi.positionType, workingLanguage: this.props.jhi.workingLanguage, position: this.props.jhi.position, project: this.props.jhi.project, desc: this.props.jhi.desc,
+	technologies: this.props.jhi.technologies };
 },
 
 updateFromMonth: function(key){
-
+	this.props.update(this.props.jhi.id, {fromMonth : key} );
+	this.setState({fromMonth : key});
 },
 updateFromYear: function(key){
-
+	this.props.update(this.props.jhi.id, {fromYear : key} );
+	this.setState({fromYear : key});
 },
 updateToMonth: function(key){
-
+	this.props.update(this.props.jhi.id, {toMonth : key} );
+	this.setState({toMonth : key});
 },
 updateToYear: function(key){
-
+	this.props.update(this.props.jhi.id, {toYear : key} );
+	this.setState({toYear : key});
 },
 
 render: function() {
 
+		console.log("called 1");
+
 return (
 
 <div className="job-history-item">
-	<h3>Company:  <strong>{this.state.jhi.company}</strong></h3>
+	<h3>Company:  <strong>{this.state.company}</strong></h3>
 	<div className="jh-left">
-		<DropdownButton onSelect={this.updateFromMonth} title={this.state.jhi.fromMonth}>
+		<DropdownButton onSelect={this.updateFromMonth} title={this.state.fromMonth}>
 			<MenuItem key="1">1</MenuItem><MenuItem key="2">2</MenuItem><MenuItem key="3">3</MenuItem><MenuItem key="4">4</MenuItem><MenuItem key="5">5</MenuItem><MenuItem key="6">6</MenuItem><MenuItem key="7">7</MenuItem><MenuItem key="8">8</MenuItem><MenuItem key="9">9</MenuItem><MenuItem key="10">10</MenuItem><MenuItem key="11">11</MenuItem><MenuItem key="12">12</MenuItem>
 		</DropdownButton>
 		/
-		<DropdownButton onSelect={updateFromYear} title={this.state.jhi.fromYear}>
+		<DropdownButton onSelect={this.updateFromYear} title={this.state.fromYear}>
 			<MenuItem key="2015">2015</MenuItem><MenuItem key="2014">2014</MenuItem><MenuItem key="2013">2013</MenuItem><MenuItem key="2012">2012</MenuItem><MenuItem key="2011">2011</MenuItem><MenuItem key="2010">2010</MenuItem><MenuItem key="2009">2009</MenuItem>
 		</DropdownButton>
 		 -
-		<DropdownButton onSelect={updateToMonth} title={this.state.jhi.toMonth}>
+		<DropdownButton onSelect={this.updateToMonth} title={this.state.toMonth}>
 			<MenuItem key="1">1</MenuItem><MenuItem key="2">2</MenuItem><MenuItem key="3">3</MenuItem><MenuItem key="4">4</MenuItem><MenuItem key="5">5</MenuItem><MenuItem key="6">6</MenuItem><MenuItem key="7">7</MenuItem><MenuItem key="8">8</MenuItem><MenuItem key="9">9</MenuItem><MenuItem key="10">10</MenuItem><MenuItem key="11">11</MenuItem><MenuItem key="12">12</MenuItem>
 		</DropdownButton>
 		/
-		<DropdownButton onSelect={updateToYear} title={this.state.jhi.toYear}>
+		<DropdownButton onSelect={this.updateToYear} title={this.state.toYear}>
 			<MenuItem key="2015">2015</MenuItem><MenuItem key="2014">2014</MenuItem><MenuItem key="2013">2013</MenuItem><MenuItem key="2012">2012</MenuItem><MenuItem key="2011">2011</MenuItem><MenuItem key="2010">2010</MenuItem><MenuItem key="2009">2009</MenuItem>
 		</DropdownButton>
 		<br />
 
-		{this.state.jhi.timeOnPositionInMonth}<br />
-		<label>Type:</label> {this.state.jhi.positionType}
-		<label>Language:</label> <span className="language cz">{this.state.jhi.workingLanguage}</span><br />
+		{this.state.timeOnPositionInMonth}<br />
+		<label>Type:</label> {this.state.positionType}
+		<label>Language:</label> <span className="language cz">{this.state.workingLanguage}</span><br />
 	</div>
 	<div className="jh-right">
 		<h4>
-			<strong className="green">{this.state.jhi.position}</strong>  on  <strong>{this.state.jhi.project}</strong> project
+			<strong className="green"><input onChange={function(e){this.setState({position: e.even.va})} onBlur={this.handleUpdate} placeholder="Position" value={this.state.position} type="text" /></strong>  on  <strong>{this.state.project}</strong> project
 		</h4>
 		<p>
-			{this.state.jhi.desc}
+			{this.state.desc}
 		</p>
 		<p>
-			{this.state.jhi.technologies}
+			{this.state.technologies}
 		</p>
 	</div>
 
