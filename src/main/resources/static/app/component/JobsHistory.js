@@ -83,10 +83,14 @@ updateToYear: function(key){
 	this.props.update(this.props.jhi.id, {toYear : key} );
 	this.setState({toYear : key});
 },
+changePosition: function(e){
+	this.setState({position : e.target.value});
+},
 
 render: function() {
 
 		console.log("called 1");
+var that = this;
 
 return (
 
@@ -116,13 +120,23 @@ return (
 	</div>
 	<div className="jh-right">
 		<h4>
-			<strong className="green"><input onChange={function(e){this.setState({position: e.even.va})} onBlur={this.handleUpdate} placeholder="Position" value={this.state.position} type="text" /></strong>  on  <strong>{this.state.project}</strong> project
+			<strong className="green">
+				<input onChange={function(e){that.setState({position : e.target.value});}} placeholder="Position" value={this.state.position} type="text"
+					   onBlur={function(e){that.props.update(that.props.jhi.id,  {position : that.state.position});}} />
+			</strong>
+			on
+			<strong>
+				<input onChange={function(e){that.setState({project : e.target.value});}} placeholder="Project name" value={this.state.project} type="text"
+				onBlur={function(e){that.props.update(that.props.jhi.id,  {project : that.state.project});}} />
+			</strong> project
 		</h4>
 		<p>
-			{this.state.desc}
+			<input onChange={function(e){that.setState({desc : e.target.value});}} placeholder="Project name" value={this.state.desc} type="text"
+			onBlur={function(e){that.props.update(that.props.jhi.id,  {desc : that.state.desc});}} />
 		</p>
 		<p>
-			{this.state.technologies}
+			<input onChange={function(e){that.setState({technologies : e.target.value});}} placeholder="Technologies used separated by space" value={this.state.technologies} type="text"
+			onBlur={function(e){that.props.update(that.props.jhi.id,  {technologies : that.state.technologies});}} />
 		</p>
 	</div>
 

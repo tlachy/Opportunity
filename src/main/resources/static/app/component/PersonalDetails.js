@@ -6,7 +6,7 @@ getInitialState: function() {
 	return {id: "", value: "", visibility: "", searchability: ""};
 },
 onChange: function(e) {
-	this.setState({value: e.target.value});
+	this.setState( {value: e.target.value} );
 },
 load: function() {
 	$.ajax({ url: "../person/1" + this.props.url, dataType: 'json',
