@@ -23,11 +23,6 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@OneToMany(mappedBy="person", orphanRemoval=true)
-	Set<JobPosition> jobPosition = new HashSet<JobPosition>();
-
-	@OneToMany(mappedBy="person", orphanRemoval=true)
-	Set<SpokenLanguage> spokenLanguage = new HashSet<SpokenLanguage>();
 
 	@OneToOne(mappedBy="person", orphanRemoval=true)
 	private FirstName firstName;
@@ -37,6 +32,17 @@ public class Person {
 
 	@OneToOne(mappedBy="person", orphanRemoval=true)
 	private MiddleNames middleNames;
+
+
+	@OneToMany(mappedBy="person", orphanRemoval=true)
+	Set<JobPosition> jobPosition = new HashSet<JobPosition>();
+
+	@OneToMany(mappedBy="person", orphanRemoval=true)
+	Set<SpokenLanguage> spokenLanguage = new HashSet<SpokenLanguage>();
+
+	@OneToMany(mappedBy="person", orphanRemoval=true)
+	Set<JobSearch> jobSearch = new HashSet<JobSearch>();
+
 
 
 	private LocalDate dateOfBorn;
@@ -51,22 +57,14 @@ public class Person {
 	private Religion religion;
 
 
-
 	//<editor-fold desc="G&Ss>
+
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Set<SpokenLanguage> getSpokenLanguage() {
-		return spokenLanguage;
-	}
-
-	public void setSpokenLanguage(Set<SpokenLanguage> spokenLanguage) {
-		this.spokenLanguage = spokenLanguage;
 	}
 
 	public FirstName getFirstName() {
@@ -91,6 +89,30 @@ public class Person {
 
 	public void setMiddleNames(MiddleNames middleNames) {
 		this.middleNames = middleNames;
+	}
+
+	public Set<JobPosition> getJobPosition() {
+		return jobPosition;
+	}
+
+	public void setJobPosition(Set<JobPosition> jobPosition) {
+		this.jobPosition = jobPosition;
+	}
+
+	public Set<SpokenLanguage> getSpokenLanguage() {
+		return spokenLanguage;
+	}
+
+	public void setSpokenLanguage(Set<SpokenLanguage> spokenLanguage) {
+		this.spokenLanguage = spokenLanguage;
+	}
+
+	public Set<JobSearch> getJobSearch() {
+		return jobSearch;
+	}
+
+	public void setJobSearch(Set<JobSearch> jobSearch) {
+		this.jobSearch = jobSearch;
 	}
 
 	public LocalDate getDateOfBorn() {
@@ -132,6 +154,8 @@ public class Person {
 	public void setReligion(Religion religion) {
 		this.religion = religion;
 	}
+
+
 	//</editor-fold>
 }
 

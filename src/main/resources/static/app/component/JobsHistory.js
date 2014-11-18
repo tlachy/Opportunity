@@ -116,7 +116,7 @@ return (
 
 		{this.state.timeOnPositionInMonth}<br />
 		<label>Type:</label> {this.state.positionType}
-		<label>Language:</label> <span className="language cz">{this.state.workingLanguage}</span><br />
+		<label>Language:</label> <span className="language ces">{this.state.workingLanguage}</span><br />
 	</div>
 	<div className="jh-right">
 		<h4>
