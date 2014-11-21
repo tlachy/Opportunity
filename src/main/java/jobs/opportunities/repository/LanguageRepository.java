@@ -8,4 +8,5 @@ import jobs.opportunities.entity.Language;
 @RepositoryRestResource(collectionResourceRel = "language", path = "language")
 public interface LanguageRepository extends PagingAndSortingRepository<Language, Long> {
 
+
 }

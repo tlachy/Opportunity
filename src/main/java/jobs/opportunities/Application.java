@@ -2,6 +2,7 @@ package jobs.opportunities;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,25 @@ import org.springframework.stereotype.Service;
 
 import jobs.opportunities.entity.FirstName;
 import jobs.opportunities.entity.JobPosition;
+import jobs.opportunities.entity.JobSearch;
 import jobs.opportunities.entity.Language;
 import jobs.opportunities.entity.LastName;
 import jobs.opportunities.entity.MiddleNames;
 import jobs.opportunities.entity.Person;
+import jobs.opportunities.entity.SearchCondition;
 import jobs.opportunities.entity.SpokenLanguage;
+import jobs.opportunities.entity.common.JobSearchType;
 import jobs.opportunities.entity.common.LanguageLevel;
 import jobs.opportunities.entity.common.PositionType;
+import jobs.opportunities.entity.common.SearchConditionType;
 import jobs.opportunities.repository.FirstNameRepository;
 import jobs.opportunities.repository.JobPositionRepository;
+import jobs.opportunities.repository.JobSearchRepository;
 import jobs.opportunities.repository.LanguageRepository;
 import jobs.opportunities.repository.LastNameRepository;
 import jobs.opportunities.repository.MiddleNamesRepository;
 import jobs.opportunities.repository.PersonRepository;
+import jobs.opportunities.repository.SearchConditionRepository;
 import jobs.opportunities.repository.SpokenLanguageRepository;
 
 @Configuration
@@ -59,6 +66,14 @@ public class Application extends RepositoryRestMvcConfiguration {
 
 	@Autowired
 	JobPositionRepository jobPositionRepository;
+
+	@Autowired
+	JobSearchRepository jobSearchRepository;
+
+	@Autowired
+	SearchConditionRepository searchConditionRepository;
+
+
 
 
 	@Override
@@ -195,5 +210,23 @@ public class Application extends RepositoryRestMvcConfiguration {
 
 		spokenLanguageRepository.save(speaksEn);
 		spokenLanguageRepository.save(speaksDe);
+
+		JobSearch jobSearch = new JobSearch();
+		jobSearch.setJobSearchType(JobSearchType.USER_SEARCH);
+		jobSearch.setPerson(person);
+		jobSearch.setCreated(new Date());
+		jobSearch.setLastRun(new Date());
+
+		jobSearchRepository.save(jobSearch);
+
+
+		SearchCondition searchCondition = new SearchCondition();
+		searchCondition.setIntValue1(1);
+		searchCondition.setStringValue1("JAVA");
+		searchCondition.setSearchConditionType(SearchConditionType.SKILL);
+		searchCondition.setJobSearch(jobSearch);
+
+		searchConditionRepository.save(searchCondition);
+
 	}
 }
