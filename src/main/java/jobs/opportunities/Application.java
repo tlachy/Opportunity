@@ -221,12 +221,33 @@ public class Application extends RepositoryRestMvcConfiguration {
 
 
 		SearchCondition searchCondition = new SearchCondition();
+		searchCondition.setX(0);
+		searchCondition.setY(0);
 		searchCondition.setIntValue1(1);
 		searchCondition.setStringValue1("JAVA");
 		searchCondition.setSearchConditionType(SearchConditionType.SKILL);
 		searchCondition.setJobSearch(jobSearch);
 
 		searchConditionRepository.save(searchCondition);
+
+		SearchCondition searchCondition1 = new SearchCondition();
+		searchCondition1.setX(1);
+		searchCondition1.setY(0);
+		searchCondition1.setIntValue1(22);
+		searchCondition1.setIntValue1(60);
+		searchCondition1.setSearchConditionType(SearchConditionType.AGE);
+		searchCondition1.setJobSearch(jobSearch);
+
+		searchConditionRepository.save(searchCondition1);
+
+		SearchCondition searchCondition2 = new SearchCondition();
+		searchCondition2.setX(0);
+		searchCondition2.setY(1);
+		searchCondition2.setIntValue1(0); //value in monhts
+		searchCondition2.setSearchConditionType(SearchConditionType.AVAILABILITY);
+		searchCondition2.setJobSearch(jobSearch);
+
+		searchConditionRepository.save(searchCondition2);
 
 	}
 }

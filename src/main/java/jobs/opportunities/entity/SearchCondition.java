@@ -18,8 +18,8 @@ public class SearchCondition {
 	@ManyToOne
 	private JobSearch jobSearch;
 
-	private int x;
-	private int y;
+	private int x = 0;
+	private int y = 0;
 
 	private SearchConditionType searchConditionType = SearchConditionType.SKILL;
 

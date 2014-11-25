@@ -89,7 +89,6 @@ changePosition: function(e){
 
 render: function() {
 
-		console.log("called 1");
 var that = this;
 
 return (
