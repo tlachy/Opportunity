@@ -30,8 +30,8 @@ success: function(response) {
 
 var conds = [[]];
 
-conds[0] = [response._embedded.searchCondition[0]];
-conds[1] = [response._embedded.searchCondition[1], response._embedded.searchCondition[2] ]
+conds[0] = [response._embedded.searchCondition[0], response._embedded.searchCondition[1]];
+conds[1] = [response._embedded.searchCondition[2] ]
 
 this.setState({conditions: conds });
 
@@ -44,8 +44,7 @@ console.error("../language", status, err.toString());
 
 render: function() {
 
-var data = [[1,2,3],[4,5,6],[7,8,9]];
-
+var that = this;
 
 return (
 <div>
@@ -56,36 +55,34 @@ return (
 
 		{this.state.conditions.map(function(row, index) {
 		return (
-		<div key={index} className="search-condition-row">
+		<div key={index}>
+		<div className="search-condition-row">
 			{row.map(function(cell, index) {
 			return(
-			<div key={index}>
-			<div className="btn-group">
+				<div key={cell.id} className="btn-group">
 
-				<div className="btn-group">
-					<button type="button" id="dropdownSearchCondition" className="btn btn-item dropdown-toggle" data-toggle="dropdown">
-						label
-						<span className="caret"></span>
-					</button>
-					<ul className="dropdown-menu" role="menu">
-						<li><a href="javascript:void(0);" ng-click="openConditionDialog(rowIndex,$index,option)"> label </a></li>
-					</ul>
+					<DropdownButton id="dropdownSearchCondition" onSelect={this.setVisibility} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
+						<MenuItem key="PUBLICLY_VISIBLE">visible</MenuItem>
+						<MenuItem key="VISIBLE_IN_INTERVIEW">visible in interviews</MenuItem>
+						<MenuItem key="NOT_VISIBLE">invisible</MenuItem>
+					</DropdownButton>
+
+
+					<span className="btn btn-item skillName">{cell.x + "  " + cell.y + "  "}</span>
+					<a href="javascript:void(0);" className="btn btn-item" ng-click="removeCondition(rowIndex,$index)"><span className="search-condition-remove"></span></a>
+
+					{ index != that.state.conditions[cell.y].length -1 ? (<span><span className="search-condition-or">OR</span></span>) : null }
 				</div>
-				<span className="btn btn-item skillName">value</span>
-				<a href="javascript:void(0);" className="btn btn-item" ng-click="removeCondition(rowIndex,$index)"><span className="search-condition-remove"></span></a>
-
-			</div>
-
-
-			<span ng-repeat-end ng-hide="$last">
-					<span className="search-condition-or">OR</span>
-			</span>
-			</div>)
+			)
 
 			;
 			})}
 
-		<span><button type="button" className="btn btn-warning btn-add" ng-click="addCondition(rowIndex)">Add</button></span>
+			<span><button type="button" className="btn btn-warning btn-add" ng-click="addCondition(rowIndex)">Add</button></span>
+		</div>
+
+		{index != that.state.conditions.length -1 ? (<div className="searchConditionRowAnd"><span className="searchConditionRowAnd-btn">AND</span></div>) : null }
+
 		</div>
 		);
 		})}

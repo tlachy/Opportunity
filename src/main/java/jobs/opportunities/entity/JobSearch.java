@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import jobs.opportunities.entity.common.JobSearchType;
 
@@ -29,6 +30,7 @@ public class JobSearch {
 	private Person person;
 
 	@OneToMany(mappedBy="jobSearch")
+	@OrderBy("y ASC, x ASC")
 	Set<SearchCondition> searchCondition = new HashSet<SearchCondition>();
 
 	//private Set<Interview> matches = new HashSet<Interview>();
