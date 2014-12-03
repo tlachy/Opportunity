@@ -219,7 +219,6 @@ public class Application extends RepositoryRestMvcConfiguration {
 
 		jobSearchRepository.save(jobSearch);
 
-
 		SearchCondition searchCondition = new SearchCondition();
 		searchCondition.setX(0);
 		searchCondition.setY(0);
@@ -248,6 +247,23 @@ public class Application extends RepositoryRestMvcConfiguration {
 		searchCondition2.setJobSearch(jobSearch);
 
 		searchConditionRepository.save(searchCondition2);
+
+
+		JobSearch preferences = new JobSearch();
+		preferences.setJobSearchType(JobSearchType.USER_PREFERENCES);
+		preferences.setPerson(person);
+		preferences.setCreated(new Date());
+		preferences.setLastRun(new Date());
+
+		jobSearchRepository.save(preferences);
+
+		SearchCondition searchCondition3 = new SearchCondition();
+		searchCondition3.setX(0);
+		searchCondition3.setY(1);
+		searchCondition3.setStringValue1("Java");
+		searchCondition3.setJobSearch(preferences);
+
+		searchConditionRepository.save(searchCondition3);
 
 	}
 }
