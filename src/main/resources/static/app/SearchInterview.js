@@ -44,7 +44,7 @@ return (
 
 <div>
 	<h2>Preferences:</h2>
-	{jQuery.isEmptyObject({});}
+	{jQuery.isEmptyObject({})}
 	<SearchConditions editable="false" searchTable="false" jobSearchId={this.state.preferences.id} />
 	<h2>Search:</h2>
 	<SearchConditions editable="true" searchTable="true" jobSearchId={this.state.search.id} />
