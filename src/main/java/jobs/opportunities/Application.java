@@ -78,7 +78,7 @@ public class Application extends RepositoryRestMvcConfiguration {
 
 	@Override
 	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(SpokenLanguage.class, Language.class, Person.class, FirstName.class, JobPosition.class, SearchCondition.class);
+		config.exposeIdsFor(SpokenLanguage.class, Language.class, Person.class, FirstName.class, JobPosition.class, SearchCondition.class, JobSearch.class);
 		config.setReturnBodyOnCreate(true);
 	}
 

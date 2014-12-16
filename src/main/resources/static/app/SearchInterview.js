@@ -11,26 +11,28 @@ componentDidMount: function() {
 },
 
 load: function() {
+	var that = this;
+
 	$.ajax({ url: "../person/1/jobSearch", dataType: 'json',
 	success: function(response) {
 
 		$.each(response._embedded.jobSearch, function( index, jobSearch ) {
 
 			if( jobSearch.jobSearchType == 'USER_PREFERENCES'){
-				this.state.search = jobSearch;
+				that.state.search = jobSearch;
 				return true;
 			}
 			if( jobSearch.jobSearchType == 'USER_SEARCH'){
-				this.state.preferences = jobSearch;
+				that.state.preferences = jobSearch;
 				return true;
 			}
 			if( jobSearch.jobSearchType == 'USER_SAVED_SEARCH'){
-				this.state.savedSearches.push(jobSearch);
+				that.state.savedSearches.push(jobSearch);
 				return true;
 			}
-			console.log("There is unrecognized type of job search with id: " + jobSearch.id + " of user with id: " + this.props.userId);
+			console.log("There is unrecognized type of job search with id: " + jobSearch.id + " of user with id: " + that.props.userId);
 		});
-		this.forceUpdate();
+		that.forceUpdate();
 
 	}.bind(this),
 		error: function(xhr, status, err) {
@@ -43,13 +45,16 @@ render: function() {
 return (
 
 <div>
+
 	<h2>Preferences:</h2>
-	{jQuery.isEmptyObject({})}
-	<SearchConditions editable="false" searchTable="false" jobSearchId={this.state.preferences.id} />
+	{jQuery.isEmptyObject(this.state.search)  ? <span/> :
+	<SearchConditions editable="false" searchTable="false" jobSearchId={this.state.preferences.id} />  }
+
 	<h2>Search:</h2>
 	<SearchConditions editable="true" searchTable="true" jobSearchId={this.state.search.id} />
-	<h2>Saved searches:</h2>
 
+
+	<h2>Saved searches:</h2>
 	{this.state.savedSearches.map(function( savedSearch, columnIndex) {
 		<SearchConditions editable="false" searchTable="true" jobSearchId={savedSearch.id} />
 	})}
@@ -63,22 +68,33 @@ return (
 
 var SearchConditions = React.createClass({
 
-getInitialState: function() {
-	return { conditions: [[]] };
-},
+mixins: [OverlayMixin],
 
+getInitialState: function() {
+	return { conditions: [[]], isModalOpen: false };
+},
 componentDidMount: function() {
 	this.load();
 },
-
+handleToggle: function () {
+	this.setState( {isModalOpen: !this.state.isModalOpen});
+},
 load: function() {
 	$.ajax({ url: "../jobSearch/1/searchCondition", dataType: 'json',
 	success: function(response) {
 
 		var conds = [[]];
 
-		conds[0] = [response._embedded.searchCondition[0], response._embedded.searchCondition[1]];
-		conds[1] = [response._embedded.searchCondition[2] ]
+		response._embedded.searchCondition.forEach(function(condition){   								// create table according to x and y
+			if (typeof conds[condition.y] == "undefined") {
+				conds[condition.y] = [condition];
+			} else {
+				conds[condition.y].push(condition);
+			}
+		});
+		conds.forEach(function(row){																	// sort rows ascendingly according to x
+			row.sort(function(condition1, condition2){ return condition1.x - condition2.x });
+		});
 
 		this.setState({conditions: conds });
 
@@ -121,6 +137,10 @@ delete: function( searchCondition ) {
 	}.bind(this)
 	});
 },
+openCondModal: function( type, x, y ) {
+
+
+},
 
 
 
@@ -142,9 +162,23 @@ return (
 				<div key={cell.id} className="btn-group">
 
 					<DropdownButton id="dropdownSearchCondition" onSelect={this.setVisibility} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
-						<MenuItem key="PUBLICLY_VISIBLE">visible</MenuItem>
-						<MenuItem key="VISIBLE_IN_INTERVIEW">visible in interviews</MenuItem>
-						<MenuItem key="NOT_VISIBLE">invisible</MenuItem>
+						<MenuItem key="LOCATION">LOCATION</MenuItem>
+						<MenuItem key="SKILL">SKILL</MenuItem>
+						<MenuItem key="YEARS_OF_EXPS">YEARS_OF_EXPS</MenuItem>
+						<MenuItem key="AGE">AGE</MenuItem>
+						<MenuItem key="SALARY">SALARY</MenuItem>
+						<MenuItem key="HOME_OFFICE">HOME_OFFICE</MenuItem>
+						<MenuItem key="TYPE_OF_CONTRACT">TYPE_OF_CONTRACT</MenuItem>
+						<MenuItem key="DISABLED">DISABLED</MenuItem>
+						<MenuItem key="LANGUAGE">LANGUAGE</MenuItem>
+						<MenuItem key="AVAILABILITY">AVAILABILITY</MenuItem>
+						<MenuItem key="DISTANCE_TO_WORK">DISTANCE_TO_WORK</MenuItem>
+						<MenuItem key="WORK_FOR_BANK">WORK_FOR_BANK</MenuItem>
+						<MenuItem key="TRAVELLING">TRAVELLING</MenuItem>
+						<MenuItem key="RELIGION">RELIGION</MenuItem>
+						<MenuItem key="ORIENTATION">ORIENTATION</MenuItem>
+						<MenuItem key="GENDRE">GENDRE</MenuItem>
+						<MenuItem key="NATIONALITY">NATIONALITY</MenuItem>
 					</DropdownButton>
 
 
@@ -170,8 +204,27 @@ return (
 </div>
 
 );
+},
+
+renderOverlay: function () {
+
+if (!this.state.isModalOpen) {
+	return <span/>;
+}
+var that = this;
+
+return (
+<Modal title="Add language" onRequestHide={this.handleToggle}>
+
+	<div className="modal-body">
+	</div>
+
+	<div className="modal-footer">
+		<Button onClick={this.addSpokenLanguage}>Add</Button>
+		<Button onClick={this.handleToggle}>Close</Button>
+	</div>
+</Modal>
+
+);
 }
 });
-
-		
-		
