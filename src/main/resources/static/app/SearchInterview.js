@@ -71,13 +71,10 @@ var SearchConditions = React.createClass({
 mixins: [OverlayMixin],
 
 getInitialState: function() {
-	return { conditions: [[]], isModalOpen: false };
+	return { conditions: [[]], isModalOpen: false, selectedCondition: {} };
 },
 componentDidMount: function() {
 	this.load();
-},
-handleToggle: function () {
-	this.setState( {isModalOpen: !this.state.isModalOpen});
 },
 load: function() {
 	$.ajax({ url: "../jobSearch/1/searchCondition", dataType: 'json',
@@ -137,9 +134,9 @@ delete: function( searchCondition ) {
 	}.bind(this)
 	});
 },
-openCondModal: function( type, x, y ) {
-
-
+openCondModal: function(condition) {
+	this.setState({selectedCondition: condition,  isModalOpen: !this.state.isModalOpen});
+	console.log(condition);
 },
 
 
@@ -161,7 +158,7 @@ return (
 			return(
 				<div key={cell.id} className="btn-group">
 
-					<DropdownButton id="dropdownSearchCondition" onSelect={this.setVisibility} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
+					<DropdownButton id="dropdownSearchCondition" onSelect={ function(key){ TODO cell.type = key; that.openCondModal(cell)}} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
 						<MenuItem key="LOCATION">LOCATION</MenuItem>
 						<MenuItem key="SKILL">SKILL</MenuItem>
 						<MenuItem key="YEARS_OF_EXPS">YEARS_OF_EXPS</MenuItem>
@@ -206,7 +203,11 @@ return (
 );
 },
 
+
+
 renderOverlay: function () {
+
+console.log("render overlay called");
 
 if (!this.state.isModalOpen) {
 	return <span/>;
@@ -214,17 +215,49 @@ if (!this.state.isModalOpen) {
 var that = this;
 
 return (
-<Modal title="Add language" onRequestHide={this.handleToggle}>
+<Modal title="Add language" onRequestHide={this.openCondModal}>
 
 	<div className="modal-body">
-	</div>
-
-	<div className="modal-footer">
-		<Button onClick={this.addSpokenLanguage}>Add</Button>
-		<Button onClick={this.handleToggle}>Close</Button>
+		<LanguageCondition condition={this.state.selectedCondition} close={this.openCondModal} save={this.openCondModal}  />
 	</div>
 </Modal>
 
+);
+}
+});
+
+
+var LanguageCondition = React.createClass({
+
+getInitialState: function() {
+	return { condition : this.props.condition };
+},
+ok: function() {
+	this.state.condition.stringValue1 = "aaaa";
+	this.props.save(this.state.condition);
+},
+close: function(){
+	this.props.close(null);
+},
+select: function(key){
+	this.condition.stringValue1 = key;
+},
+
+
+render: function() {
+console.log("render called");
+return (
+	<div>
+	{this.props.condition.searchConditionType}
+	<DropdownButton  onSelect={this.openCondModal} title={"neco"} className="btn btn-item dropdown-toggle">
+    						<MenuItem key="en">LOCATION</MenuItem>
+    						<MenuItem key="cz">SKILL</MenuItem>
+    </DropdownButton>
+    <div>
+    		<Button onClick={this.ok}>OK</Button>
+    		<Button onClick={this.close}>Close</Button>
+    </div>
+    </div>
 );
 }
 });
