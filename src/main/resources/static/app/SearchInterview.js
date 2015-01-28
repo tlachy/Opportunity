@@ -71,7 +71,7 @@ var SearchConditions = React.createClass({
 mixins: [OverlayMixin],
 
 getInitialState: function() {
-	return { conditions: [[]], isModalOpen: false, selectedCondition: {} };
+	return { conditions: [[]], isModalOpen: false, selectedCondition: {}, selectedType: "" };
 },
 componentDidMount: function() {
 	this.load();
