@@ -59,7 +59,7 @@ return (
 		<PersonAttribute url="/firstName/" label="First name" />
 		<PersonAttribute url="/middleNames/" label="Middle names" />
 		<PersonAttribute url="/lastName/" label="Last name" />
-		pridate availability (right now, nebo ve mesicich)
+
 
 		<div className="form-group">
 			<label>Date of birth:</label>

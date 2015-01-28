@@ -158,7 +158,7 @@ return (
 			return(
 				<div key={cell.id} className="btn-group">
 
-					<DropdownButton id="dropdownSearchCondition" onSelect={ function(key){ TODO cell.type = key; that.openCondModal(cell)}} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
+					<DropdownButton id="dropdownSearchCondition" onSelect={ function(key){  cell.type = key; that.openCondModal(cell)}} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
 						<MenuItem key="LOCATION">LOCATION</MenuItem>
 						<MenuItem key="SKILL">SKILL</MenuItem>
 						<MenuItem key="YEARS_OF_EXPS">YEARS_OF_EXPS</MenuItem>
@@ -185,7 +185,7 @@ return (
 					{ columnIndex != that.state.conditions[cell.y].length -1 ? (<span><span className="search-condition-or">OR</span></span>) : null }
 				</div>
 			);})}
-			<span><Button onClick={ function(){ that.save({ x: that.state.conditions[rowIndex].length , y: rowIndex  }, rowIndex)}} bsStyle="warning">ADD</Button></span>
+			<span><Button onClick={ function(){ that.save({ x: that.state.conditions[rowIndex].length , y: rowIndex  }, rowIndex)}} className="btn-add" bsStyle="warning">ADD</Button></span>
 		</div>
 
 		{rowIndex != that.state.conditions.length -1 ? (<div className="searchConditionRowAnd"><span className="searchConditionRowAnd-btn">AND</span></div>) : null }
@@ -194,7 +194,7 @@ return (
 		);})}
 
 		<div className="searchConditionRowAdd rowAdd">
-			<Button onClick={ function(){  that.save(  {x:0, y: that.state.conditions.length})}} bsStyle="success">ADD ROW</Button>
+			<Button onClick={ function(){  that.save(  {x:0, y: that.state.conditions.length})}} className="btn-add" bsStyle="success">ADD ROW</Button>
 		</div>
 	</div>
 

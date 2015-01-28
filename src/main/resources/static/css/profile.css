@@ -22,6 +22,11 @@
     padding: 20px 0;
 }
 
+#profileContainer .btn .caret
+{
+    margin-left: 5px;
+}
+
 #profileContainer h2{
     margin: 10px 0 0 0;
     font-size: 22px;
@@ -30,29 +35,29 @@
     background: #f4f4f4;
 }
 
-.dropdown-holder{
+#profileContainer .dropdown-holder{
     position: relative;
     display: inline-block;
 }
 
-.dropdown-holder .dropdown-menu li{
+#profileContainer .dropdown-holder .dropdown-menu li{
     padding: 2px 10px;
     font-size: 12px;
     color: #777;
     white-space: nowrap;
 }
 
-.dropdown-holder .dropdown-menu li:hover{
+#profileContainer .dropdown-holder .dropdown-menu li:hover{
     color: #333;
     background: #ebebeb;
 }
 
-.dropdown-holder .dropdown-menu li .action-ico{
+#profileContainer .dropdown-holder .dropdown-menu li .action-ico{
     opacity: 1;
     margin: 0 3px 0 0;
 }
 
-.action-ico{
+#profileContainer .action-ico{
     width: 20px;
     height: 19px;
     display: inline-block;
@@ -60,29 +65,40 @@
     vertical-align: middle;
     cursor: pointer;
     opacity: 0.8;
-    background: url(../images/action-icons.png) no-repeat left top;
+    background: url(../images/action-icons.png) no-repeat -8px -2px;
+    border: 0;
+    padding: 0;
 }
 
-.action-ico:hover{
+#profileContainer .action-ico .caret{
+    display: none;
+}
+
+#profileContainer .action-ico:hover{
     opacity: 1;
 }
 
-.action-ico.ico-visible{ background-position: -8px -2px; }
-.action-ico.partial-visible{ background-position: -41px -2px; }
-.action-ico.ico-invisible{ background-position: -74px -2px; }
+#profileContainer .action-ico.ico-visible{ background-position: -8px -2px; }
+#profileContainer .action-ico.partial-visible,
+#profileContainer .action-ico.VISIBLE_IN_INTERVIEW{ background-position: -41px -2px; }
+#profileContainer .action-ico.ico-invisible,
+#profileContainer .action-ico.NOT_VISIBLE{ background-position: -74px -2px; }
 
-.action-ico.searchable{ background-position: -103px -2px; }
-.action-ico.not-searchable{ background-position: -131px -2px; }
-.action-ico.ico-delete{ background-position: -157px -3px; }
-.action-ico.ico-edit{ background-position: -180px -2px; }
+#profileContainer .action-ico.searchable,
+#profileContainer .action-ico.SEARCHABLE{ background-position: -103px -2px; }
+#profileContainer .action-ico.not-searchable,
+#profileContainer .action-ico.NOT_SEARCHABLE{ background-position: -131px -2px; }
+#profileContainer .action-ico.ico-delete{ background-position: -157px -3px; text-indent: -5000px; overflow: hidden; }
+#profileContainer .action-ico.ico-edit{ background-position: -180px -2px; }
 
-.btn-export{
+#profileContainer .btn-export{
     margin: 0 0 0 10px;
 }
 
 .nowrap{
     padding: 0 4px;
     white-space: nowrap;
+    display: inline-block;
 }
 
 
@@ -159,6 +175,7 @@
     margin: 0 10px 10px 0;
     float: left;
 }
+
 
 .personalForm .form-group input{
     display: inline-block;
@@ -275,6 +292,13 @@
     line-height: 18px;
 }
 
+.jh-right h4 input{
+    padding: 2px 5px;
+    margin: 0 3px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+}
+
 .jh-right h4 .green{
     color: #359935;
 }
@@ -284,6 +308,15 @@
     padding: 0;
     font-size: 13px;
     line-height: 16px;
+}
+
+.jh-right textarea{
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0 3px;
+    border: 1px solid #ccc;
 }
 
 

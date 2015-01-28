@@ -97,7 +97,7 @@ render: function() {
 	return (
 		<div>
 			{spokenLanguagesNodes}
-			<Button onClick={this.handleToggle} bsStyle="warning">Add language</Button>
+			<Button onClick={this.handleToggle} className="btn-add"  bsStyle="warning">Add language</Button>
 		</div>
 
 	);

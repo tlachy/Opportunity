@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+
 var JobsHistory = React.createClass({
 
 getInitialState: function() {
@@ -119,23 +120,22 @@ return (
 	</div>
 	<div className="jh-right">
 		<h4>
-			<strong className="green">
-				<input onChange={function(e){that.setState({position : e.target.value});}} placeholder="Position" value={this.state.position} type="text"
+				<input className="green" onChange={function(e){that.setState({position : e.target.value});}} placeholder="Position" value={this.state.position} type="text"
 					   onBlur={function(e){that.props.update(that.props.jhi.id,  {position : that.state.position});}} />
-			</strong>
 			on
-			<strong>
+
 				<input onChange={function(e){that.setState({project : e.target.value});}} placeholder="Project name" value={this.state.project} type="text"
 				onBlur={function(e){that.props.update(that.props.jhi.id,  {project : that.state.project});}} />
-			</strong> project
+			project
 		</h4>
 		<p>
-			<input onChange={function(e){that.setState({desc : e.target.value});}} placeholder="Project name" value={this.state.desc} type="text"
-			onBlur={function(e){that.props.update(that.props.jhi.id,  {desc : that.state.desc});}} />
+
+			<textarea onkeyup={function(e){  e.target.style.height = "1px"; setTimeout(function() { e.target.style.height = (e.target.scrollHeight)+"px"; }, 1); }} onChange={function(e){that.setState({desc : e.target.value});}} placeholder="Project name" value={this.state.desc}
+			onBlur={function(e){that.props.update(that.props.jhi.id,  {desc : that.state.desc});}} ></textarea>
 		</p>
 		<p>
-			<input onChange={function(e){that.setState({technologies : e.target.value});}} placeholder="Technologies used separated by space" value={this.state.technologies} type="text"
-			onBlur={function(e){that.props.update(that.props.jhi.id,  {technologies : that.state.technologies});}} />
+			<textarea  onChange={function(e){that.setState({technologies : e.target.value});}} placeholder="Technologies used separated by space" value={this.state.technologies} type="text"
+			onBlur={function(e){that.props.update(that.props.jhi.id,  {technologies : that.state.technologies});}} ></textarea>
 		</p>
 	</div>
 

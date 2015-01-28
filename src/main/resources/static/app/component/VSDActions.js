@@ -21,9 +21,8 @@ delete: function() {
 
 render: function() {
 
-	var visibilityClass = 'action-ico dropdown-toggle' +  this.state.visibility;
-	var searchabilityClass = 'action-ico dropdown-toggle' +  this.state.searchability;
-
+	var visibilityClass = 'action-ico dropdown-toggle ' +  this.state.visibility;
+	var searchabilityClass = 'action-ico dropdown-toggle ' +  this.state.searchability;
 	return (
 
 <div className="actions">
