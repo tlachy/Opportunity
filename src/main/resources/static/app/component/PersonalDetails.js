@@ -21,7 +21,6 @@ load: function() {
 update: function(id, data) {
 	$.ajax({ url: ".." + this.props.url + id, dataType: 'json', type: 'PATCH', data : JSON.stringify(data) , headers : {'Accept' : 'application/json', 'Content-Type' : 'application/json'},
 		success: function(result) {
-		console.log(result);
 		this.load();
 	}.bind(this),
 		error: function(xhr, status, err) {

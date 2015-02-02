@@ -207,8 +207,6 @@ return (
 
 renderOverlay: function () {
 
-console.log("render overlay called");
-
 if (!this.state.isModalOpen) {
 	return <span/>;
 }

@@ -32,7 +32,7 @@ update: function(id, data) {
 	});
 },
 render: function() {
-console.log("called 0");
+
 var that = this;
 
 var jobPositions = this.state.jobPositions.map(function (jp) {
