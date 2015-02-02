@@ -1,4 +1,4 @@
-package jobs.opportunities.entity;
+package jobs.opportunities.entity.person.attributes;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import jobs.opportunities.entity.Person;
 import jobs.opportunities.entity.common.interfaces.Searchable;
 import jobs.opportunities.entity.common.interfaces.Visible;
 
@@ -25,7 +26,7 @@ public class MiddleNames implements Visible, Searchable{
 
 	private Searchability searchability = Searchability.SEARCHABLE;
 
-
+	//<editor-fold desc="Getters&Setters" >
 	public long getId() {
 		return id;
 	}
@@ -65,4 +66,5 @@ public class MiddleNames implements Visible, Searchable{
 	public void setSearchability(Searchability searchability) {
 		this.searchability = searchability;
 	}
+	//</editor-fold>
 }

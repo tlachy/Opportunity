@@ -12,9 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import jobs.opportunities.entity.common.Gender;
-import jobs.opportunities.entity.common.Nationality;
-import jobs.opportunities.entity.common.Religion;
+import jobs.opportunities.entity.person.attributes.Religion;
+import jobs.opportunities.entity.person.attributes.*;
 
 @Entity
 public class Person {
@@ -22,7 +21,6 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
 
 	@OneToOne(mappedBy="person", orphanRemoval=true)
 	private FirstName firstName;
@@ -32,6 +30,19 @@ public class Person {
 
 	@OneToOne(mappedBy="person", orphanRemoval=true)
 	private MiddleNames middleNames;
+
+	@OneToOne(mappedBy="person", orphanRemoval=true)
+	private DateOfBirth dateOfBirth;
+
+	@OneToOne(mappedBy="person", orphanRemoval=true)
+	private Gender gender;
+
+	@OneToOne(mappedBy="person", orphanRemoval=true)
+	private Nationality nationality;
+
+	@OneToOne(mappedBy="person", orphanRemoval=true)
+	private Religion religion;
+
 
 
 	@OneToMany(mappedBy="person", orphanRemoval=true)
@@ -43,21 +54,10 @@ public class Person {
 	@OneToMany(mappedBy="person", orphanRemoval=true)
 	Set<JobSearch> jobSearch = new HashSet<JobSearch>();
 
-
-
-	private LocalDate dateOfBorn;
-
-	private Nationality nationality;
-
-	private Gender gender;
-
 	@Transient
 	private List<String> locationOfHome; // if company sets misto vykonu prace this can be used for calculationg distance
 
-	private Religion religion;
-
-
-	//<editor-fold desc="G&Ss>
+	//<editor-fold desc="Getters&Setters">
 
 	public long getId() {
 		return id;
@@ -91,6 +91,38 @@ public class Person {
 		this.middleNames = middleNames;
 	}
 
+	public DateOfBirth getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(DateOfBirth dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Nationality getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(Nationality nationality) {
+		this.nationality = nationality;
+	}
+
+	public Religion getReligion() {
+		return religion;
+	}
+
+	public void setReligion(Religion religion) {
+		this.religion = religion;
+	}
+
 	public Set<JobPosition> getJobPosition() {
 		return jobPosition;
 	}
@@ -115,44 +147,12 @@ public class Person {
 		this.jobSearch = jobSearch;
 	}
 
-	public LocalDate getDateOfBorn() {
-		return dateOfBorn;
-	}
-
-	public void setDateOfBorn(LocalDate dateOfBorn) {
-		this.dateOfBorn = dateOfBorn;
-	}
-
-	public Nationality getNationality() {
-		return nationality;
-	}
-
-	public void setNationality(Nationality nationality) {
-		this.nationality = nationality;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
 	public List<String> getLocationOfHome() {
 		return locationOfHome;
 	}
 
 	public void setLocationOfHome(List<String> locationOfHome) {
 		this.locationOfHome = locationOfHome;
-	}
-
-	public Religion getReligion() {
-		return religion;
-	}
-
-	public void setReligion(Religion religion) {
-		this.religion = religion;
 	}
 
 

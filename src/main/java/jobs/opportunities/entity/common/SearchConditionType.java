@@ -1,5 +1,10 @@
 package jobs.opportunities.entity.common;
 
+import jobs.opportunities.entity.person.attributes.Gender;
+import jobs.opportunities.entity.person.attributes.Nationality;
+import jobs.opportunities.entity.person.attributes.Orientation;
+import jobs.opportunities.entity.person.attributes.Religion;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,10 +24,10 @@ public enum SearchConditionType {
 	DISTANCE_TO_WORK, // in KM plus gps of location - in interview you can specify also GPS as position of work
 	WORK_FOR_BANK ("YES", "NO"),
 	TRAVELLING ("NO_TRAVELLLING", "EXCEPTIONAL", "OCASSIONAL", "ALMOST_PERMANENT", "PERMANENT"),
-	RELIGION (Religion.values()),                    // TODO apply function .name to all values from enum !!! ALSO NEED TO KEEP BOOLEAN IF IT SHOULD BE THIS RELIGION OR SHOUND NOT BE THE RELIGON
-	ORIENTATION(Orientation.values()),               // TODO THE SAME FOR FOLLOWING CONDITIONS
-	GENDRE ( Gender.values()),
-	NATIONALITY ( Nationality.values()  );
+	RELIGION (Religion.ReligionEnum.values()),                    // TODO apply function .name to all values from enum !!! ALSO NEED TO KEEP BOOLEAN IF IT SHOULD BE THIS RELIGION OR SHOUND NOT BE THE RELIGON
+	ORIENTATION(Orientation.OrientationEnum.values()),               // TODO THE SAME FOR FOLLOWING CONDITIONS
+	GENDRE ( Gender.GenderEnum.values()),
+	NATIONALITY ( Nationality.NationalityEnum.values()  );
 
 
 

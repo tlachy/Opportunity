@@ -17,8 +17,6 @@ import jobs.opportunities.entity.common.interfaces.Visible;
 //@Table(uniqueConstraints=@UniqueConstraint(columnNames={"person", "language"}))
 public class SpokenLanguage implements Searchable, Visible {
 
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

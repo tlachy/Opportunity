@@ -1,4 +1,4 @@
-package jobs.opportunities.entity;
+package jobs.opportunities.entity.person.attributes;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import jobs.opportunities.entity.Person;
 import jobs.opportunities.entity.common.interfaces.Searchable;
 import jobs.opportunities.entity.common.interfaces.Visible;
 
@@ -19,7 +20,7 @@ public class DateOfBirth implements Visible, Searchable {
 	@OneToOne
 	private Person person;
 
-	private String value;
+	private String value; //TODO how to store it
 
 	private Visibility visibility = Visibility.PUBLICLY_VISIBLE;
 
@@ -29,6 +30,7 @@ public class DateOfBirth implements Visible, Searchable {
 		return id;
 	}
 
+	//<editor-fold desc="Getters&Setters" >
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -64,4 +66,5 @@ public class DateOfBirth implements Visible, Searchable {
 	public void setSearchability(Searchability searchability) {
 		this.searchability = searchability;
 	}
+	//</editor-fold>
 }

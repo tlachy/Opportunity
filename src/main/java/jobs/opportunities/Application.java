@@ -16,12 +16,12 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.stereotype.Service;
 
-import jobs.opportunities.entity.FirstName;
+import jobs.opportunities.entity.person.attributes.FirstName;
 import jobs.opportunities.entity.JobPosition;
 import jobs.opportunities.entity.JobSearch;
 import jobs.opportunities.entity.Language;
-import jobs.opportunities.entity.LastName;
-import jobs.opportunities.entity.MiddleNames;
+import jobs.opportunities.entity.person.attributes.LastName;
+import jobs.opportunities.entity.person.attributes.MiddleNames;
 import jobs.opportunities.entity.Person;
 import jobs.opportunities.entity.SearchCondition;
 import jobs.opportunities.entity.SpokenLanguage;
@@ -90,7 +90,6 @@ public class Application extends RepositoryRestMvcConfiguration {
 	private void load() {
 
 		Person person1 = new Person();
-		person1.setDateOfBorn(LocalDate.of(1948, Month.NOVEMBER, 20));
 		Person person = personRepository.save(person1);
 
 		FirstName firstName = new FirstName();
