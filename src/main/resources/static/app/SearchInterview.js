@@ -47,7 +47,7 @@ return (
 <div>
 
 	<h2>Preferences:</h2>
-	{jQuery.isEmptyObject(this.state.search)  ? <span/> :
+	{jQuery.isEmptyObject(this.state.search) ? <span/> :
 	<SearchConditions editable="false" searchTable="false" jobSearchId={this.state.preferences.id} />  }
 
 	<h2>Search:</h2>
@@ -71,7 +71,7 @@ var SearchConditions = React.createClass({
 mixins: [OverlayMixin],
 
 getInitialState: function() {
-	return { conditions: [[]], isModalOpen: false, selectedCondition: {}, selectedType: "" };
+	return { conditions: [[]], isModalOpen: false, selectedCondition: null, selectedType: null };
 },
 componentDidMount: function() {
 	this.load();
@@ -106,7 +106,6 @@ save: function(data, rowIndex) {
 
 	$.ajax({ url: "../searchCondition", dataType: 'json', type: 'POST', data : JSON.stringify(data) , headers : {'Accept' : 'application/json', 'Content-Type' : 'application/json'},
 		success: function(result) {
-		console.log(result);
 
 		if(typeof rowIndex !== 'undefined'){
 			this.state.conditions[rowIndex].push(result);
@@ -124,7 +123,6 @@ save: function(data, rowIndex) {
 delete: function( searchCondition ) {
 	$.ajax({ url: "../searchCondition/" + searchCondition.id, dataType: 'json', type: 'DELETE',
 		success: function(result) {
-		console.log(result);
 		this.state.conditions[searchCondition.y].splice(searchCondition.x, 1);
 		this.forceUpdate();
 
@@ -134,9 +132,8 @@ delete: function( searchCondition ) {
 	}.bind(this)
 	});
 },
-openCondModal: function(condition) {
-	this.setState({selectedCondition: condition,  isModalOpen: !this.state.isModalOpen});
-	console.log(condition);
+openCondModal: function(condition, selectedType) {
+	this.setState({selectedCondition: condition, selectedType: selectedType, isModalOpen: !this.state.isModalOpen});
 },
 
 
@@ -158,7 +155,7 @@ return (
 			return(
 				<div key={cell.id} className="btn-group">
 
-					<DropdownButton id="dropdownSearchCondition" onSelect={ function(key){  cell.type = key; that.openCondModal(cell)}} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
+					<DropdownButton id="dropdownSearchCondition" onSelect={function(key){ that.openCondModal(cell, key)}} title={cell.searchConditionType} className="btn btn-item dropdown-toggle">
 						<MenuItem key="LOCATION">LOCATION</MenuItem>
 						<MenuItem key="SKILL">SKILL</MenuItem>
 						<MenuItem key="YEARS_OF_EXPS">YEARS_OF_EXPS</MenuItem>
@@ -213,10 +210,10 @@ if (!this.state.isModalOpen) {
 var that = this;
 
 return (
-<Modal title="Add language" onRequestHide={this.openCondModal}>
+<Modal title="Specify details" onRequestHide={this.openCondModal}>
 
 	<div className="modal-body">
-		<LanguageCondition condition={this.state.selectedCondition} close={this.openCondModal} save={this.openCondModal}  />
+		<TravellingCondition condition={this.state.selectedCondition} newType={this.state.selectedType} close={this.openCondModal}  />
 	</div>
 </Modal>
 
@@ -225,35 +222,35 @@ return (
 });
 
 
-var LanguageCondition = React.createClass({
+var TravellingCondition = React.createClass({
 
 getInitialState: function() {
-	return { condition : this.props.condition };
+	return { value : "NO_TRAVELLLING" };
 },
 ok: function() {
-	this.state.condition.stringValue1 = "aaaa";
-	this.props.save(this.state.condition);
+	this.props.condition.stringValue1 = this.state.value;
+	this.props.condition.searchConditionType = this.props.newType;
+	this.props.close();
 },
-close: function(){
-	this.props.close(null);
-},
-select: function(key){
-	this.condition.stringValue1 = key;
+onSelect: function(key){
+	this.setState({value: key});
 },
 
 
 render: function() {
-console.log("render called");
 return (
 	<div>
-	{this.props.condition.searchConditionType}
-	<DropdownButton  onSelect={this.openCondModal} title={"neco"} className="btn btn-item dropdown-toggle">
-    						<MenuItem key="en">LOCATION</MenuItem>
-    						<MenuItem key="cz">SKILL</MenuItem>
+	Frequency of Travelling :
+	<DropdownButton title={this.state.value} onSelect={this.onSelect} className="btn btn-item dropdown-toggle">
+    						<MenuItem key="NO_TRAVELLLING">NO_TRAVELLLING</MenuItem>
+    						<MenuItem key="EXCEPTIONAL">EXCEPTIONAL</MenuItem>
+    						<MenuItem key="OCASSIONAL">OCASSIONAL</MenuItem>
+    						<MenuItem key="ALMOST_PERMANENT">ALMOST_PERMANENT</MenuItem>
+    						<MenuItem key="PERMANENT">PERMANENT</MenuItem>
     </DropdownButton>
     <div>
     		<Button onClick={this.ok}>OK</Button>
-    		<Button onClick={this.close}>Close</Button>
+    		<Button onClick={this.props.close}>Close</Button>
     </div>
     </div>
 );
