@@ -46,13 +46,13 @@ public class Person {
 
 
 	@OneToMany(mappedBy="person", orphanRemoval=true)
-	Set<JobPosition> jobPosition = new HashSet<JobPosition>();
+	private Set<JobPosition> jobPosition = new HashSet<JobPosition>();
 
 	@OneToMany(mappedBy="person", orphanRemoval=true)
-	Set<SpokenLanguage> spokenLanguage = new HashSet<SpokenLanguage>();
+	private Set<SpokenLanguage> spokenLanguage = new HashSet<SpokenLanguage>();
 
 	@OneToMany(mappedBy="person", orphanRemoval=true)
-	Set<JobSearch> jobSearch = new HashSet<JobSearch>();
+	private Set<JobSearch> jobSearch = new HashSet<JobSearch>();
 
 	@Transient
 	private List<String> locationOfHome; // if company sets misto vykonu prace this can be used for calculationg distance
