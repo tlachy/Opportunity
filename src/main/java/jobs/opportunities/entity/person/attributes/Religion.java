@@ -1,42 +1,24 @@
 package jobs.opportunities.entity.person.attributes;
 
+import jobs.opportunities.entity.abstractentity.SearchableVisibleEntity;
 import jobs.opportunities.entity.Person;
-import jobs.opportunities.entity.common.interfaces.Searchable;
-import jobs.opportunities.entity.common.interfaces.Visible;
+import jobs.opportunities.entity.abstractentity.ValueEntity;
 
 import javax.persistence.*;
 
-@Entity
-public class Religion {
+@javax.persistence.Entity
+public class Religion extends ValueEntity<Religion.ReligionEnum> {
 
-	public static enum ReligionEnum
-	{
-		Muslim, Mormon, Budhism, Catholic  //find ISO norm
+	public static enum ReligionEnum {
+		Islam, Mormonism, Buddhism, Catholicism, Hynduism, Protestantism, Restorationism, Judaism, Gnosticism, Newage, Pastafarianism, Scientology;   //find ISO norm - there is no such a thing
 	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
 
 	@OneToOne
 	private Person person;
 
-	@Enumerated(EnumType.STRING)
+	/*@Enumerated(EnumType.STRING)
 	private ReligionEnum value;
-
-	private Visible.Visibility visibility = Visible.Visibility.PUBLICLY_VISIBLE;
-
-	private Searchable.Searchability searchability = Searchable.Searchability.SEARCHABLE;
-
-	//<editor-fold desc="Getters&Setters" >
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
+*/
 	public Person getPerson() {
 		return person;
 	}
@@ -45,29 +27,12 @@ public class Religion {
 		this.person = person;
 	}
 
-	public ReligionEnum getValue() {
+	/*public ReligionEnum getValue() {
 		return value;
 	}
 
 	public void setValue(ReligionEnum value) {
 		this.value = value;
-	}
-
-	public Visible.Visibility getVisibility() {
-		return visibility;
-	}
-
-	public void setVisibility(Visible.Visibility visibility) {
-		this.visibility = visibility;
-	}
-
-	public Searchable.Searchability getSearchability() {
-		return searchability;
-	}
-
-	public void setSearchability(Searchable.Searchability searchability) {
-		this.searchability = searchability;
-	}
-	//</editor-fold>
+	}*/
 
 }

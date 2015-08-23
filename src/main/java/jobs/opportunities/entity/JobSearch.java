@@ -11,14 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import jobs.opportunities.entity.abstractentity.IdEntity;
 import jobs.opportunities.entity.common.JobSearchType;
 
 @Entity
-public class JobSearch {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+public class JobSearch extends IdEntity {
 
 	private Date created;
 
@@ -34,15 +31,6 @@ public class JobSearch {
 	Set<SearchCondition> searchCondition = new HashSet<SearchCondition>();
 
 	//private Set<Interview> matches = new HashSet<Interview>();
-
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public Date getCreated() {
 		return created;
