@@ -1,22 +1,13 @@
 package jobs.opportunities.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import jobs.opportunities.entity.abstractentity.SearchableVisibleEntity;
 import jobs.opportunities.entity.common.PositionType;
-import jobs.opportunities.entity.common.interfaces.Searchable;
-import jobs.opportunities.entity.common.interfaces.Visible;
 
-@Entity
-public class JobPosition implements Searchable, Visible {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+@javax.persistence.Entity
+public class JobPosition extends SearchableVisibleEntity {
 
 	@ManyToOne
 	private Person person;
@@ -37,21 +28,9 @@ public class JobPosition implements Searchable, Visible {
 	private String workingLanguage;
 
 	@Column(length = 2000)
-	private String desc;
-
+	private String description;
 
 	private String technologies;
-	private Searchability searchability = Searchability.SEARCHABLE;
-	private Visibility visibility = Visibility.PUBLICLY_VISIBLE;
-
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public Person getPerson() {
 		return person;
@@ -141,12 +120,12 @@ public class JobPosition implements Searchable, Visible {
 		this.workingLanguage = workingLanguage;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getTechnologies() {
@@ -157,19 +136,4 @@ public class JobPosition implements Searchable, Visible {
 		this.technologies = technologies;
 	}
 
-	public Searchability getSearchability() {
-		return searchability;
-	}
-
-	public void setSearchability(Searchability searchability) {
-		this.searchability = searchability;
-	}
-
-	public Visibility getVisibility() {
-		return visibility;
-	}
-
-	public void setVisibility(Visibility visibility) {
-		this.visibility = visibility;
-	}
 }

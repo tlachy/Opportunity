@@ -6,14 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import jobs.opportunities.entity.abstractentity.IdEntity;
 import jobs.opportunities.entity.common.SearchConditionType;
 
 @Entity
-public class SearchCondition {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+public class SearchCondition extends IdEntity {
 
 	@ManyToOne
 	private JobSearch jobSearch;
@@ -30,15 +27,6 @@ public class SearchCondition {
 	private Integer intValue1;
 
 	private Integer intValue2;
-
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public JobSearch getJobSearch() {
 		return jobSearch;

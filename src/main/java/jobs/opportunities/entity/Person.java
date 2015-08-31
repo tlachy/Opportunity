@@ -1,71 +1,56 @@
 package jobs.opportunities.entity;
 
-import java.time.LocalDate;
+import jobs.opportunities.entity.abstractentity.IdEntity;
+import jobs.opportunities.entity.person.attributes.*;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-
-import jobs.opportunities.entity.person.attributes.Religion;
-import jobs.opportunities.entity.person.attributes.*;
 
 @Entity
-public class Person {
+public class Person extends IdEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	@OneToOne(cascade= CascadeType.ALL)
+	private Contact contact;
 
-	@OneToOne(mappedBy="person", orphanRemoval=true)
+	@OneToOne(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
 	private FirstName firstName;
 
-	@OneToOne(mappedBy="person", orphanRemoval=true)
+	@OneToOne(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
 	private LastName lastName;
 
-	@OneToOne(mappedBy="person", orphanRemoval=true)
+	@OneToOne(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
 	private MiddleNames middleNames;
 
-	@OneToOne(mappedBy="person", orphanRemoval=true)
+	@OneToOne(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
 	private DateOfBirth dateOfBirth;
 
-	@OneToOne(mappedBy="person", orphanRemoval=true)
+	@OneToOne(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
 	private Gender gender;
 
-	@OneToOne(mappedBy="person", orphanRemoval=true)
+	@OneToOne(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
 	private Nationality nationality;
 
-	@OneToOne(mappedBy="person", orphanRemoval=true)
+	@OneToOne(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
 	private Religion religion;
 
+	@OneToMany(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
+	private Set<JobPosition> jobPositions = new HashSet<JobPosition>();
 
+	@OneToMany(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
+	private Set<SpokenLanguage> spokenLanguages = new HashSet<SpokenLanguage>();
 
-	@OneToMany(mappedBy="person", orphanRemoval=true)
-	private Set<JobPosition> jobPosition = new HashSet<JobPosition>();
+	@OneToMany(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
+	private Set<JobSearch> jobSearches = new HashSet<JobSearch>();
 
-	@OneToMany(mappedBy="person", orphanRemoval=true)
-	private Set<SpokenLanguage> spokenLanguage = new HashSet<SpokenLanguage>();
-
-	@OneToMany(mappedBy="person", orphanRemoval=true)
-	private Set<JobSearch> jobSearch = new HashSet<JobSearch>();
+	@OneToMany(mappedBy="person", orphanRemoval=true, cascade= CascadeType.ALL)
+	private Set<CompletedEducation> completedEducations = new HashSet<CompletedEducation>();
 
 	@Transient
 	private List<String> locationOfHome; // if company sets misto vykonu prace this can be used for calculationg distance
 
 	//<editor-fold desc="Getters&Setters">
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public FirstName getFirstName() {
 		return firstName;
@@ -123,28 +108,28 @@ public class Person {
 		this.religion = religion;
 	}
 
-	public Set<JobPosition> getJobPosition() {
-		return jobPosition;
+	public Set<JobPosition> getJobPositions() {
+		return jobPositions;
 	}
 
-	public void setJobPosition(Set<JobPosition> jobPosition) {
-		this.jobPosition = jobPosition;
+	public void setJobPositions(Set<JobPosition> jobPositions) {
+		this.jobPositions = jobPositions;
 	}
 
-	public Set<SpokenLanguage> getSpokenLanguage() {
-		return spokenLanguage;
+	public Set<SpokenLanguage> getSpokenLanguages() {
+		return spokenLanguages;
 	}
 
-	public void setSpokenLanguage(Set<SpokenLanguage> spokenLanguage) {
-		this.spokenLanguage = spokenLanguage;
+	public void setSpokenLanguages(Set<SpokenLanguage> spokenLanguages) {
+		this.spokenLanguages = spokenLanguages;
 	}
 
-	public Set<JobSearch> getJobSearch() {
-		return jobSearch;
+	public Set<JobSearch> getJobSearches() {
+		return jobSearches;
 	}
 
-	public void setJobSearch(Set<JobSearch> jobSearch) {
-		this.jobSearch = jobSearch;
+	public void setJobSearches(Set<JobSearch> jobSearches) {
+		this.jobSearches = jobSearches;
 	}
 
 	public List<String> getLocationOfHome() {
@@ -155,7 +140,20 @@ public class Person {
 		this.locationOfHome = locationOfHome;
 	}
 
+	public Contact getContact() {
+		return contact;
+	}
 
-	//</editor-fold>
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	public Set<CompletedEducation> getCompletedEducations() {
+		return completedEducations;
+	}
+
+	public void setCompletedEducations(Set<CompletedEducation> completedEducations) {
+		this.completedEducations = completedEducations;
+	}
 }
 

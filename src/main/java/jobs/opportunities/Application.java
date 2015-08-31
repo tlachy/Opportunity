@@ -1,10 +1,12 @@
 package jobs.opportunities;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 
+import jobs.opportunities.entity.*;
+import jobs.opportunities.entity.common.*;
+import jobs.opportunities.entity.person.attributes.*;
+import jobs.opportunities.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,34 +18,12 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.stereotype.Service;
 
-import jobs.opportunities.entity.person.attributes.FirstName;
-import jobs.opportunities.entity.JobPosition;
-import jobs.opportunities.entity.JobSearch;
-import jobs.opportunities.entity.Language;
-import jobs.opportunities.entity.person.attributes.LastName;
-import jobs.opportunities.entity.person.attributes.MiddleNames;
-import jobs.opportunities.entity.Person;
-import jobs.opportunities.entity.SearchCondition;
-import jobs.opportunities.entity.SpokenLanguage;
-import jobs.opportunities.entity.common.JobSearchType;
-import jobs.opportunities.entity.common.LanguageLevel;
-import jobs.opportunities.entity.common.PositionType;
-import jobs.opportunities.entity.common.SearchConditionType;
-import jobs.opportunities.repository.FirstNameRepository;
-import jobs.opportunities.repository.JobPositionRepository;
-import jobs.opportunities.repository.JobSearchRepository;
-import jobs.opportunities.repository.LanguageRepository;
-import jobs.opportunities.repository.LastNameRepository;
-import jobs.opportunities.repository.MiddleNamesRepository;
-import jobs.opportunities.repository.PersonRepository;
-import jobs.opportunities.repository.SearchConditionRepository;
-import jobs.opportunities.repository.SpokenLanguageRepository;
-
 @Configuration
 @EnableJpaRepositories
 @Import(RepositoryRestMvcConfiguration.class)
 @EnableAutoConfiguration
-@ComponentScan(excludeFilters = @ComponentScan.Filter({ Service.class, Configuration.class }))  //with no default packages set scans from this package higher
+@ComponentScan(excludeFilters = @ComponentScan.Filter({Service.class, Configuration.class}))
+//with no default packages set scans from this package higher
 public class Application extends RepositoryRestMvcConfiguration {
 
 	@Autowired
@@ -62,6 +42,9 @@ public class Application extends RepositoryRestMvcConfiguration {
 	LastNameRepository lastNameRepository;
 
 	@Autowired
+	NationalityRepository nationalityRepository;
+
+	@Autowired
 	MiddleNamesRepository middleNamesRepository;
 
 	@Autowired
@@ -73,8 +56,21 @@ public class Application extends RepositoryRestMvcConfiguration {
 	@Autowired
 	SearchConditionRepository searchConditionRepository;
 
+	@Autowired
+	ReligionRepository religionRepository;
+
+	@Autowired
+	ContactRepository contactRepository;
+
+	@Autowired
+	CompletedEducationRepository completedEducationRepository;
+
+	@Autowired
+	AddressRepository addressRepository;
 
 
+	@Autowired
+	EducationInstitutionRepository educationInstitutionRepository;
 
 	@Override
 	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
@@ -89,8 +85,56 @@ public class Application extends RepositoryRestMvcConfiguration {
 	@PostConstruct
 	private void load() {
 
-		Person person1 = new Person();
-		Person person = personRepository.save(person1);
+		Person person = new Person();
+
+		Contact contact = new Contact();
+		contact.setEmail("trtko@makovy.sk");
+		contact.setMobilePhone("777-777-777");
+		contact.setSkype("dolesimazedol");
+		contact.setPerson(person);
+		person.setContact(contact);
+		person = personRepository.save(person);
+
+		Address address = new Address();
+		address.setCity("Trnava");
+		address.setStreet("Vrcharova");
+		address.setNumber("14B");
+		address.setZipCode("324324");
+		address.setState("Slovensko");
+		address = addressRepository.save(address);
+
+		Address address2 = new Address();
+		address2.setCity("Kosice");
+		address2.setStreet("Banka");
+		address2.setNumber("2");
+		address2.setZipCode("111");
+		address2.setState("Slovensko");
+		address2 = addressRepository.save(address2);
+
+		EducationInstitution institution = new EducationInstitution();
+		institution.setAddress(address);
+		institution.setName("Katolicka univerzita");
+		institution.setUrl("http://kostol.sk");
+		institution = educationInstitutionRepository.save(institution);
+
+		EducationInstitution institution2 = new EducationInstitution();
+		institution2.setAddress(address2);
+		institution2.setName("Kosicka postihnuta");
+		institution2.setUrl("http://dement.sk");
+		institution2 = educationInstitutionRepository.save(institution2);
+
+		CompletedEducation education = new CompletedEducation();
+		education.setPerson(person);
+		education.setEducationType(EducationType.UNIVERSITY);
+		education.setInstitution(institution);
+		completedEducationRepository.save(education);
+
+		CompletedEducation education2 = new CompletedEducation();
+		education2.setPerson(person);
+		education2.setEducationType(EducationType.COLLEGE);
+		education2.setInstitution(institution2);
+
+		completedEducationRepository.save(education2);
 
 		FirstName firstName = new FirstName();
 		firstName.setValue("George");
@@ -102,6 +146,16 @@ public class Application extends RepositoryRestMvcConfiguration {
 		lastName.setPerson(person);
 		lastNameRepository.save(lastName);
 
+		Nationality nationality = new Nationality();
+		nationality.setValue(Nationality.NationalityEnum.ALBANIAN);
+		nationality.setPerson(person);
+		nationalityRepository.save(nationality);
+
+		Religion religion = new Religion();
+		religion.setValue(Religion.ReligionEnum.Catholicism);
+		religion.setPerson(person);
+		religionRepository.save(religion);
+
 		MiddleNames middleNames = new MiddleNames();
 		middleNames.setValue("Raymond Richard");
 		middleNames.setPerson(person);
@@ -112,7 +166,7 @@ public class Application extends RepositoryRestMvcConfiguration {
 		jobPosition.setCompany("IBA CZ");
 		jobPosition.setProject("Human resources management and aplicant management system");
 		jobPosition.setPosition("Java Developer");
-		jobPosition.setDesc("Doc Hastings, protects and promotes hydropower resources by ending practices that diminish existing hydropower, cutting regulatory red-tape, generating new non-federal funding for new projects and improving transparency. Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions.");
+		jobPosition.setDescription("Doc Hastings, protects and promotes hydropower resources by ending practices that diminish existing hydropower, cutting regulatory red-tape, generating new non-federal funding for new projects and improving transparency. Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions.");
 		jobPosition.setTechnologies("HTML/CSS, Javascript, jQuery, Flash, Python, Ruby, ASP.NET, Wordpress, Drupal, Joomla");
 
 		jobPosition.setFromMonth("6");
@@ -123,7 +177,7 @@ public class Application extends RepositoryRestMvcConfiguration {
 
 		jobPosition.setPositionType(PositionType.Regular);
 		jobPosition.setWorkingLanguage("eng");
-		
+
 		jobPositionRepository.save(jobPosition);
 
 
@@ -132,7 +186,7 @@ public class Application extends RepositoryRestMvcConfiguration {
 		jobPosition1.setCompany("IBA CZ");
 		jobPosition1.setPosition("Java Developer");
 		jobPosition1.setProject("Aplicant management system");
-		jobPosition1.setDesc("Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
+		jobPosition1.setDescription("Hydropower is a clean, renewable form of energy that accounts for 70 percent of electricity in Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
 		jobPosition1.setTechnologies("PHP, Nette, Flash, Python, Ruby, ASP.NET, Wordpress, Drupal, Joomla");
 
 		jobPosition1.setFromMonth("6");
@@ -152,7 +206,7 @@ public class Application extends RepositoryRestMvcConfiguration {
 		jobPosition2.setCompany("IHolding s.r.o.");
 		jobPosition2.setPosition("HTML Coder");
 		jobPosition2.setProject("Company website");
-		jobPosition2.setDesc("Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
+		jobPosition2.setDescription("Washington state, seven percent of electricity generated in the U.S. and prevents 200 million annual metric tons of carbon emissions");
 		jobPosition2.setTechnologies("HTML/CSS, Javascript, jQuery");
 
 		jobPosition2.setFromMonth("6");
@@ -180,7 +234,7 @@ public class Application extends RepositoryRestMvcConfiguration {
 		en.setDeu("Englisch");
 		en.setIcon("");
 
-	    en = languageRepository.save(en);
+		en = languageRepository.save(en);
 
 		Language deu = new Language();
 		deu.setId1("deu");
@@ -198,14 +252,14 @@ public class Application extends RepositoryRestMvcConfiguration {
 		deu = languageRepository.save(deu);
 
 		SpokenLanguage speaksEn = new SpokenLanguage();
-		speaksEn.setLanguageLevel(LanguageLevel.A1);
+		speaksEn.setLanguageLevelType(LanguageLevelType.A1);
 		speaksEn.setLanguage(en);
 		speaksEn.setPerson(person);
 
 		SpokenLanguage speaksDe = new SpokenLanguage();
 		speaksDe.setPerson(person);
 		speaksDe.setLanguage(deu);
-		speaksDe.setLanguageLevel(LanguageLevel.NATIVE);
+		speaksDe.setLanguageLevelType(LanguageLevelType.NATIVE);
 
 		spokenLanguageRepository.save(speaksEn);
 		spokenLanguageRepository.save(speaksDe);

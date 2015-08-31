@@ -1,5 +1,7 @@
 package jobs.opportunities.entity;
 
+import jobs.opportunities.entity.abstractentity.IdEntity;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -9,11 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Language {
+public class Language extends IdEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	// TODO je potrebne vsetky preklady? Nedame to do Enumu?
 
 	@OneToMany(mappedBy="language")
 	Set<SpokenLanguage> speaks = new HashSet<SpokenLanguage>();
@@ -40,14 +40,6 @@ public class Language {
 
 	private String icon;
 
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getId1() {
 		return id1;
